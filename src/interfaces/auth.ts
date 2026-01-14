@@ -1,0 +1,20 @@
+import { GenderEnum, UserRoleEnum } from '@/utils/enum/user'
+
+export interface IRegister {
+  email: string
+  avatar: string
+  userName: string
+  phone?: string
+  dateOfBirth: Date
+  gender: GenderEnum
+}
+
+export interface ILogin {
+  email: string
+}
+
+export interface ITokenData {
+  id: string
+  name: string
+  role: UserRoleEnum
+}
