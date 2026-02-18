@@ -4,14 +4,14 @@ const notify = (type: 'success' | 'error', msg: string) => {
   switch (type) {
     case 'success':
       return notification.success({
-        message: msg,
+        title: msg,
         duration: 4,
         showProgress: true,
         pauseOnHover: false
       })
     case 'error':
       return notification.error({
-        message: msg,
+        title: msg,
         duration: 4,
         showProgress: true,
         pauseOnHover: false

@@ -1,11 +1,11 @@
 'use client'
+import Spin from '@/components/spin'
 import { ITokenData } from '@/interfaces/auth'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { decodeData } from '@/utils/helper/common'
-import { Spin } from 'antd'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -47,15 +47,10 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
     checkAuth()
   }, [])
 
-  return loading || !authorized ? (
-    <div
-      className='loading-center'
-      style={{ display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center' }}
-    >
-      <Spin spinning={true} />
+  return (
+    <div className='h-screen'>
+      <Spin loading={loading || !authorized}>{children}</Spin>
     </div>
-  ) : (
-    <div>{children}</div>
   )
 }
 

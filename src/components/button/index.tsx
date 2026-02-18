@@ -10,7 +10,7 @@ type ButtonType =
   | 'register'
   | 'saveFullWidth'
   | 'outline'
-  | 'cirlce'
+  | 'circle'
   | 'outlineFullWidth'
 
 interface ButtonProps {
@@ -46,7 +46,7 @@ const Button = ({
       '!bg-[var(--color-primary)] hover:!bg-[var(--color-primary-hover)] text-white !w-full !text-[17px] !font-[600] !py-[18px] !rounded-[30px]',
     outline:
       '!bg-white hover:!bg-[var(--color-primary)] !text-black  hover:!text-white border !border-[var(--color-primary)]',
-    cirlce: '!bg-white hover:!bg-white !text-black !rounded-[50%] !shadow-lg',
+    circle: '!bg-white hover:!bg-white !text-black !rounded-[50%] !shadow-lg',
     outlineFullWidth:
       '!bg-white hover:!bg-[var(--color-primary)] !text-black  hover:!text-white border !border-[var(--color-primary)] !w-full !text-[16px] !py-[18px] !rounded-[30px]'
   }

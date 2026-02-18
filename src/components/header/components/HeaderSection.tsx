@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode } from 'react'
-import Button from '../button'
-import icons from '../icons'
+import Button from '../../button'
+import icons from '../../icons'
 
 interface HeaderSectionProps {
   title: string

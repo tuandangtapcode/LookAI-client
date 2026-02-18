@@ -23,12 +23,27 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
     {
       key: routes.profile.source,
       label: 'Thông tin cá nhân',
-      role: [UserRoleEnum.STUDENT, UserRoleEnum.TEACHER]
+      role: [UserRoleEnum.STYLIST, UserRoleEnum.USER]
+    },
+    {
+      key: routes.wardrobe.source,
+      label: 'Tủ quần áo',
+      role: [UserRoleEnum.STYLIST, UserRoleEnum.USER]
+    },
+    {
+      key: routes.outfitAdvice.source,
+      label: 'Tư vấn phối đồ',
+      role: [UserRoleEnum.USER]
+    },
+    {
+      key: routes.userSubscription.source,
+      label: 'Gói đăng ký',
+      role: [UserRoleEnum.USER]
     },
     {
       key: 'logout',
       label: 'Đăng xuất',
-      role: [UserRoleEnum.STUDENT, UserRoleEnum.TEACHER]
+      role: [UserRoleEnum.STYLIST, UserRoleEnum.USER]
     }
   ]
 
@@ -36,7 +51,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Header />
       {noFooterRoutes.includes(pathName) ? (
-        <div className='bg-(--color-primary-matte) h-[calc(100dvh-76px)] p-3'>
+        <div className='bg-(--color-primary-matte) p-3'>
           <div className='bg-gray-100 text-black h-full rounded-md py-3 px-4'>{children}</div>
         </div>
       ) : (

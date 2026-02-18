@@ -6,6 +6,7 @@ export const DEFAULT_PAGINATION = {
 
 export const SYSTEM_KEY = {
   GENDER: 'Gender',
-  ACCOUNT_STATUS: 'AccountStatus',
-  USER_ROLE: 'UserRole'
+  USER_ROLE: 'UserRole',
+  ITEM_CATEGORY: 'ItemCategory',
+  USER_SUBSCRIPTION_STATUS: 'UserSubscriptionStatus'
 }

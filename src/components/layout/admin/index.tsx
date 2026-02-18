@@ -21,6 +21,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       icon: icons.ICON_DASBOARD
     },
     {
+      key: routes.packagesAdmin.source,
+      label: 'Gói',
+      icon: icons.ICON_PACKAGE
+    },
+    {
+      key: routes.itemTypes.source,
+      label: 'Loại trang phục',
+      icon: icons.ICON_ITEM_TYPE_ADMIN
+    },
+    {
       key: 'logout',
       label: 'Đăng xuất',
       icon: icons.ICON_LOGOUT
@@ -32,9 +42,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <div className='flex h-[calc(100dvh-100px)] mt-5'>
         <div
-          className={`flex flex-col justify-between border-r border-r-(--color-matte) ${
-            collapsed ? '' : 'w-[18%]!'
-          }`}
+          className={`flex flex-col justify-between border-r border-r-(--color-matte) ${collapsed ? '' : 'w-[16%]!'}`}
         >
           <Menu
             defaultSelectedKeys={[pathName]}

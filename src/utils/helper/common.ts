@@ -4,6 +4,7 @@ import AuthService from '@/services/auth'
 import SocketService from '@/services/socket'
 import { Dispatch } from '@reduxjs/toolkit'
 import CryptoJS from 'crypto-js'
+import _ from 'lodash'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import env from '../config/env'
 import { routes } from '../constant/route'
@@ -25,4 +26,16 @@ export const handleLogout = async (dispatch: Dispatch, router: AppRouterInstance
   SocketService.disconnect()
   dispatch(globalSlice.actions.setUser(null))
   dispatch(globalSlice.actions.setIsCheckAuth(false))
+}
+
+export const truncateParams = (params: any) => {
+  const searchParams = _.chain(params)
+    .pickBy((v) => !_.isNil(v) && v !== '')
+    .map((value, key) => {
+      const val: any = _.isArray(value) ? value.join(',') : value
+      return `${encodeURIComponent(key)}=${encodeURIComponent(val)}`
+    })
+    .join('&')
+    .value()
+  return searchParams ? `?${searchParams}` : ''
 }

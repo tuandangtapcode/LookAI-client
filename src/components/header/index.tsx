@@ -84,8 +84,9 @@ const Header = () => {
                 }}
                 trigger={['click']}
               >
-                <div className='flex items-center gap-x-2'>
+                <div className='flex items-center gap-x-2 text-white'>
                   <Image className='block w-10! h-10! rounded-[50%]' src={user?.avatar} preview={false} alt='' />
+                  <div className='text-[15px]'>{user?.userName}</div>
                 </div>
               </Dropdown>
             </div>

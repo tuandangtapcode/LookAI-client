@@ -7,11 +7,36 @@ export const routes = {
     destination: '/dashboard',
     isAdmin: true
   },
+  itemTypes: {
+    source: '/quan-ly-loai-trang-phuc',
+    destination: '/item-types',
+    isAdmin: true
+  },
+  packagesAdmin: {
+    source: '/quan-ly-goi',
+    destination: '/packages',
+    isAdmin: true
+  },
 
   // user
   profile: {
     source: '/trang-ca-nhan',
     destination: '/profile',
+    isAdmin: false
+  },
+  wardrobe: {
+    source: '/tu-quan-ao',
+    destination: '/wardrobe',
+    isAdmin: false
+  },
+  outfitAdvice: {
+    source: '/tu-van-phoi-do',
+    destination: '/outfit-advice',
+    isAdmin: false
+  },
+  userSubscription: {
+    source: '/goi-dang-ky',
+    destination: '/subscription',
     isAdmin: false
   },
 
@@ -52,4 +77,4 @@ export const rewriteRoutes = _.map(routes, (route) => ({
 
 export const adminRoutes = _.filter(routes, (route) => route.isAdmin).map((route) => route.source)
 
-export const noFooterRoutes = ['']
+export const noFooterRoutes = [routes.wardrobe.source, routes.outfitAdvice.source]

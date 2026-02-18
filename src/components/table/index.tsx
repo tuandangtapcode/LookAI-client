@@ -10,7 +10,7 @@ interface TableProps<T extends object> {
   data: T[]
   pagination?: any
   total?: number
-  setPagination?: (updater: (prev: any) => any) => void
+  setPagination?: (callback: (prev: any) => any) => void
   rowSelection?: TableRowSelection<T>
   expandable?: ExpandableConfig<T>
 }

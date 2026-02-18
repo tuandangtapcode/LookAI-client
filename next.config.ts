@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
   async rewrites() {
     return rewriteRoutes
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**'
+      },
+      {
+        protocol: 'http',
+        hostname: '**'
+      }
+    ]
   }
 }
 

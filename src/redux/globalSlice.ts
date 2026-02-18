@@ -1,6 +1,7 @@
 import { ISystemkey } from '@/interfaces/systemkey'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IUser } from './../interfaces/user'
+import { getDetailProfileThunk, getListSystemkeyThunk } from './globalThunk'
 
 interface InitialState {
   user: IUser | null
@@ -32,6 +33,16 @@ const globalSlice = createSlice({
     setRouterBeforeLogin: (state, action: PayloadAction<string | null>) => {
       state.routerBeforeLogin = action.payload
     }
+  },
+  extraReducers(builder) {
+    // systemkey
+    builder.addCase(getListSystemkeyThunk.fulfilled, (state, action: PayloadAction<ISystemkey[]>) => {
+      state.listSystemKey = action.payload
+    })
+    // user
+    builder.addCase(getDetailProfileThunk.fulfilled, (state, action: PayloadAction<IUser | null>) => {
+      state.user = action.payload
+    })
   }
 })
 

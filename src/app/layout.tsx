@@ -1,5 +1,6 @@
 'use client'
 import store from '@/redux/store'
+import env from '@/utils/config/env'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -22,7 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Provider store={store}>
-          <GoogleOAuthProvider clientId='580616862297-rut8o4p2ue72fk5pbekjn51l6hic7mq2.apps.googleusercontent.com'>
+          <GoogleOAuthProvider clientId={env.GOOGLE_OAUTH_CLIENT_ID}>
             <AntdRegistry>
               <App>{children}</App>
             </AntdRegistry>

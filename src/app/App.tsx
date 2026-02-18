@@ -1,7 +1,6 @@
 'use client'
 import { getDetailProfileThunk, getListSystemkeyThunk } from '@/redux/globalThunk'
 import { AppDispatch, globalSelector } from '@/redux/store'
-import SocketService from '@/services/socket'
 import { adminRoutes, routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { usePathname, useRouter } from 'next/navigation'
@@ -19,8 +18,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
   const getListSystemkey = async () => {
     try {
       setLoading(true)
-      console.log('getListSystemkey');
-      
       await dispatch(getListSystemkeyThunk())
     } finally {
       setLoading(false)
@@ -31,8 +28,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
     try {
       setLoading(true)
       const user = await dispatch(getDetailProfileThunk(router)).unwrap()
-      SocketService.connect()
-      SocketService.addOnlineUser(user?.id)
+      // SocketService.connect()
+      // SocketService.addOnlineUser(user?.id)
       if (routerBeforeLogin) return router.push(routerBeforeLogin)
       if ([routes.login.source, routes.register.source].includes(pathName)) {
         if (user?.role === UserRoleEnum.ADMIN) {
