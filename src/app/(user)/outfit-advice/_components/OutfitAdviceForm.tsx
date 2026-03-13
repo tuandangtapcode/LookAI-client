@@ -4,7 +4,7 @@ import { globalSelector } from '@/redux/store'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
 import { Col, Form, FormInstance, Input, InputNumber, Row, Select } from 'antd'
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 interface OutfitAdviceFormProps {
@@ -16,13 +16,18 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
 
   useEffect(() => {
-    form.setFieldsValue(user)
+    if (user?.dateOfBirth) {
+      const age = new Date().getFullYear() - new Date(user?.dateOfBirth).getFullYear()
+      form.setFieldsValue({ ...user, age })
+    } else {
+      form.setFieldsValue(user)
+    }
   }, [user])
 
   return (
     <Form form={form} layout='vertical'>
       <Row gutter={[8, 0]}>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item
             name='height'
             label='Chiều cao:'
@@ -31,7 +36,7 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
             <InputNumber placeholder='Chiều cao' />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item
             name='weight'
             label='Cân nặng:'
@@ -40,12 +45,12 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
             <InputNumber placeholder='Cân nặng' />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item name='clothingSize' label='Size quần áo:'>
             <Input placeholder='VD: 39, 40, L, XL,...' />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item
             name='skinColor'
             label='Màu da:'
@@ -54,7 +59,7 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
             <Input placeholder='VD: Trắng, Vàng, Nâu,...' />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item
             name='gender'
             label='Giới tính:'
@@ -69,21 +74,32 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
             />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
           <Form.Item name='age' label='Tuổi:' rules={[{ required: true, message: 'Thông tin không được để trống' }]}>
             <InputNumber placeholder='Tuổi' />
           </Form.Item>
         </Col>
-        <Col span={12}>
-          <Form.Item
-            name='fashionStyle'
-            label='Phong cách thời trang thường mặc:'
-            rules={[{ required: true, message: 'Thông tin không được để trống' }]}
-          >
-            <Input placeholder='VD: Công sở, Năng động, Cổ điển,...' />
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Form.Item name='currentStyle' label='Phong cách hiện tại:'>
+            <Input placeholder='VD: Trẻ trung, Thanh lịch, Năng động,...' />
           </Form.Item>
         </Col>
-        <Col span={12}>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Form.Item name='desiredStyle' label='Phong cách mong muốn:'>
+            <Input placeholder='VD: Trẻ trung, Thanh lịch, Năng động,...' />
+          </Form.Item>
+        </Col>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Form.Item name='occupation' label='Nghề nghiệp:'>
+            <Input placeholder='VD: Kỹ sư, Giáo viên, Bác sĩ,...' />
+          </Form.Item>
+        </Col>
+        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24}>
+          <Form.Item name='place' label='Nơi sống:'>
+            <Input placeholder='VD: Nông thôn, Thành phố,...' />
+          </Form.Item>
+        </Col>
+        <Col span={24}>
           <Form.Item
             name='occasion'
             label='Bạn cần tư vấn cho dịp nào:'
@@ -97,4 +113,4 @@ const OutfitAdviceForm = ({ form }: OutfitAdviceFormProps) => {
   )
 }
 
-export default OutfitAdviceForm
+export default memo(OutfitAdviceForm)

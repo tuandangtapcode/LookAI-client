@@ -3,7 +3,7 @@ import Button from '@/components/button'
 import Spin from '@/components/spin'
 import { useUserSubscription } from '@/hooks/user-subscription'
 import { ICreateOutfitAdviceResponse } from '@/interfaces/outfit-adivce'
-import { IUserSubscription } from '@/interfaces/user_subscription'
+import { IUserSubscription } from '@/interfaces/user-subscription'
 import OutfitAdviceService from '@/services/outfit-advice'
 import notify from '@/utils/notify'
 import { Form } from 'antd'
@@ -45,6 +45,9 @@ const OutfitAdvice = () => {
             onClick={handleSubmit}
             loading={loading}
             disabled={currentSubscription?.usedQuota === currentSubscription?.quota}
+            tooltip={
+              currentSubscription?.usedQuota === currentSubscription?.quota ? 'Bạn đã sử dụng hết hạn mức tư vấn' : ''
+            }
           >
             Gửi yêu cầu tư vấn
           </Button>

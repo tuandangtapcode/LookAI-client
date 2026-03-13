@@ -13,6 +13,7 @@ interface TableProps<T extends object> {
   setPagination?: (callback: (prev: any) => any) => void
   rowSelection?: TableRowSelection<T>
   expandable?: ExpandableConfig<T>
+  loading?: boolean
 }
 
 const Table = <T extends object>({
@@ -22,7 +23,8 @@ const Table = <T extends object>({
   total,
   setPagination,
   rowSelection,
-  expandable
+  expandable,
+  loading
 }: TableProps<T>) => {
   return (
     <AntdTable
@@ -32,6 +34,8 @@ const Table = <T extends object>({
       rowKey='id'
       rowSelection={rowSelection ? rowSelection : undefined}
       expandable={expandable}
+      scroll={{ x: 'max-content' }}
+      loading={loading}
       pagination={
         pagination?.pageSize && total
           ? {

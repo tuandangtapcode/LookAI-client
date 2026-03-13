@@ -3,7 +3,8 @@ const env = {
   ROOT_CLIENT_URL: String(process.env.NEXT_PUBLIC_ROOT_CLIENT_URL),
   HASH_KEY: String(process.env.NEXT_PUBLIC_HASH_KEY),
   PAYOS_WEB_LINK: String(process.env.NEXT_PUBLIC_PAYOS_WEB_LINK),
-  GOOGLE_OAUTH_CLIENT_ID: String(process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID)
+  GOOGLE_OAUTH_CLIENT_ID: String(process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID),
+  X_PLATFORM: String(process.env.NEXT_PUBLIC_X_PLATFORM)
 }
 
 export default env

@@ -24,5 +24,5 @@ export interface IUpdatePackage extends ICreatePackage {
 }
 
 export interface IGetListPackage {
-  isActive: BooleanEnum | null
+  isActive?: BooleanEnum
 }

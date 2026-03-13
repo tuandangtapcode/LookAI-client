@@ -1,7 +1,7 @@
 export interface IPagination {
   pageSize: number
   currentPage: number
-  textSearch: string
+  textSearch?: string
 }
 
 export interface IButtonShow {
@@ -11,7 +11,7 @@ export interface IButtonShow {
 }
 
 export interface IGetListResponse<T> {
-  list: T
+  list: T[]
   total: number
   buttonShow?: IButtonShow
 }
@@ -20,4 +20,9 @@ export interface IBaseData {
   id: string
   createdAt?: Date
   updatedAt?: Date
+}
+
+export interface IStatistic {
+  forMonth?: number
+  forYear?: number
 }

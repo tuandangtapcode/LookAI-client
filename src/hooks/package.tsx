@@ -8,10 +8,10 @@ import { formatMoney } from '@/utils/helper/string'
 import { Space, TableColumnsType } from 'antd'
 import useSWR from 'swr'
 
-export const usePackages = (query: IGetListPackage) => {
-  const params = truncateParams(query)
-  const { data, isLoading, mutate } = useSWR(`${baseRoutePackage}${params}`, () =>
-    PackageService.getListPackage(query)
+export const usePackages = (params: IGetListPackage) => {
+  const _params = truncateParams(params)
+  const { data, isLoading, mutate } = useSWR(`${baseRoutePackage}${_params}`, () =>
+    PackageService.getListPackage(params)
   )
   return {
     packages: data?.data || [],

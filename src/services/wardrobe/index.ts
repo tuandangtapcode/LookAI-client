@@ -7,9 +7,9 @@ const createWardrobe = (body: ICreateWardrobe): Promise<IAxiosResponse<IWardrobe
   axiosInstance.post(baseRouteWardrobe, body)
 const updateWardrobe = (body: IUpdateWardrobe): Promise<IAxiosResponse<IWardrobe>> =>
   axiosInstance.put(baseRouteWardrobe, body)
-const getListWardrobe = (query: IGetListWardrobe): Promise<IAxiosResponse<IWardrobe[]>> => {
-  const params = truncateParams(query)
-  return axiosInstance.get(`${baseRouteWardrobe}${params}`)
+const getListWardrobe = (params: IGetListWardrobe): Promise<IAxiosResponse<IWardrobe[]>> => {
+  const _params = truncateParams(params)
+  return axiosInstance.get(`${baseRouteWardrobe}${_params}`)
 }
 
 const WardrobeService = {

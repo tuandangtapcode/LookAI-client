@@ -12,9 +12,29 @@ export const routes = {
     destination: '/item-types',
     isAdmin: true
   },
-  packagesAdmin: {
+  packages: {
     source: '/quan-ly-goi',
     destination: '/packages',
+    isAdmin: true
+  },
+  users: {
+    source: '/quan-ly-nguoi-dung',
+    destination: '/users',
+    isAdmin: true
+  },
+  userDetail: {
+    source: '/quan-ly-nguoi-dung/:userId',
+    destination: '/users/:userId',
+    isAdmin: true
+  },
+  payments: {
+    source: '/quan-ly-thanh-toan',
+    destination: '/payments',
+    isAdmin: true
+  },
+  expenses: {
+    source: '/quan-ly-chi-tieu',
+    destination: '/expenses',
     isAdmin: true
   },
 
@@ -39,6 +59,12 @@ export const routes = {
     destination: '/subscription',
     isAdmin: false
   },
+  checkout: {
+    source: '/thanh-toan/:packageId',
+    destination: '/checkout/:packageId',
+    root: '/thanh-toan',
+    isAdmin: false
+  },
 
   // guest
   home: {
@@ -54,6 +80,11 @@ export const routes = {
   register: {
     source: '/dang-ky',
     destination: '/register',
+    isAdmin: false
+  },
+  packagesList: {
+    source: '/danh-sach-goi',
+    destination: '/packages-list',
     isAdmin: false
   },
 
@@ -77,4 +108,4 @@ export const rewriteRoutes = _.map(routes, (route) => ({
 
 export const adminRoutes = _.filter(routes, (route) => route.isAdmin).map((route) => route.source)
 
-export const noFooterRoutes = [routes.wardrobe.source, routes.outfitAdvice.source]
+export const noFooterRoutes = [routes.wardrobe.source, routes.outfitAdvice.source, routes.checkout.root]

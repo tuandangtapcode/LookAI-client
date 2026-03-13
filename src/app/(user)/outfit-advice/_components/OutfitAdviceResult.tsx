@@ -5,6 +5,7 @@ import { globalSelector } from '@/redux/store'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
 import { formatAIAnswer } from '@/utils/helper/string'
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 interface OutfitAdviceResultProps {
@@ -21,7 +22,7 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
     <div className='bg-white p-6 rounded-lg shadow-lg'>
       <div className='space-y-4'>
         <div className='flex justify-end'>
-          <div className='bg-blue-500 text-white p-3 rounded-lg max-w-md'>
+          <div className='bg-blue-500 text-white py-3 px-4 rounded-lg max-w-md'>
             <h3 className='text-lg font-semibold mb-2'>Thông tin của bạn:</h3>
             <p>
               <strong>Chiều cao:</strong> {payload.height} cm
@@ -39,7 +40,16 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
               <strong>Tuổi:</strong> {payload.age}
             </p>
             <p>
-              <strong>Phong cách:</strong> {payload.fashionStyle}
+              <strong>Phong cách hiện tại:</strong> {payload.currentStyle}
+            </p>
+            <p>
+              <strong>Phong cách mong muốn:</strong> {payload.desiredStyle}
+            </p>
+            <p>
+              <strong>Nghề nghiệp:</strong> {payload.occupation}
+            </p>
+            <p>
+              <strong>Nơi sống:</strong> {payload.place}
             </p>
             <p>
               <strong>Dịp:</strong> {payload.occasion}
@@ -47,7 +57,7 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
           </div>
         </div>
         <div className='flex justify-start'>
-          <div className='bg-gray-200 text-gray-800 p-3 rounded-lg max-w-md'>
+          <div className='bg-gray-200 text-gray-800 py-3 px-4 rounded-lg max-w-md'>
             <div dangerouslySetInnerHTML={{ __html: formatAIAnswer(answer) }} />
           </div>
         </div>
@@ -61,4 +71,4 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
   )
 }
 
-export default OutfitAdviceResult
+export default memo(OutfitAdviceResult)

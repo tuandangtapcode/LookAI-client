@@ -27,7 +27,9 @@ const Login = () => {
         setLoading(true)
         const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
         const dataFromGoogle = userInfor?.data
-        const res = await AuthService.login({ email: dataFromGoogle.email })
+        console.log('userInfor?.data', userInfor?.data)
+
+        const res = await AuthService.login({ email: dataFromGoogle.email, sub: dataFromGoogle.sub })
         if (res?.error) return notify('error', res?.msg)
         const tokenData: ITokenData = decodeData(res?.data)
         if (!tokenData?.id || !tokenData?.role) return router.push(routes.forbidden.source)

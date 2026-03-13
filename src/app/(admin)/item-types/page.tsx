@@ -1,6 +1,5 @@
 'use client'
 import HeaderSection from '@/components/header/components/HeaderSection'
-import Spin from '@/components/spin'
 import Table from '@/components/table'
 import { useGenerateItemTypeColumn, useItemTypes } from '@/hooks/item-type'
 import { IItemType } from '@/interfaces/item-type'
@@ -12,10 +11,10 @@ const ItemTypes = () => {
   const [openUpserttUpdateItemType, setOpenUpserttUpdateItemType] = useState<IItemType | boolean>(false)
 
   return (
-    <Spin loading={loading}>
+    <div>
       <HeaderSection title='Quản lý loại trang phục' onAddButton={() => setOpenUpserttUpdateItemType(true)} />
       <div>
-        <Table columns={useGenerateItemTypeColumn(setOpenUpserttUpdateItemType)} data={itemTypes} />
+        <Table columns={useGenerateItemTypeColumn(setOpenUpserttUpdateItemType)} data={itemTypes} loading={loading} />
       </div>
 
       {openUpserttUpdateItemType && (
@@ -25,7 +24,7 @@ const ItemTypes = () => {
           onOk={refresh}
         />
       )}
-    </Spin>
+    </div>
   )
 }
 

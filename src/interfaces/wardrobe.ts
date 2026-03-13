@@ -5,11 +5,11 @@ import { IItemType } from './item-type'
 export interface IWardrobe extends IBaseData {
   name: string
   userId: string
-  itemType: IItemType
+  itemType?: IItemType
   itemCategory: ItemCategoryEnum
   image: string
   color: string
-  size: string
+  size?: string
   isFavourite: BooleanEnum
 }
 
@@ -29,8 +29,8 @@ export interface IUpdateWardrobe extends ICreateWardrobe {
 
 export interface IGetListWardrobe {
   itemCategory: ItemCategoryEnum
-  itemTypeId: string | null
-  color: string | null
-  size: string | null
-  isFavourite: BooleanEnum | null
+  itemTypeId?: string
+  color?: string
+  size?: string
+  isFavourite?: BooleanEnum
 }

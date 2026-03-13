@@ -49,7 +49,6 @@ const UpsertPackage = ({ open, onCancel, onOk }: UpsertPackageProps) => {
       onCancel={onCancel}
       onSubmit={handleSubmit}
       loading={loading}
-      width='40vw'
     >
       <Form form={form} layout='vertical'>
         <Row gutter={[8, 0]}>

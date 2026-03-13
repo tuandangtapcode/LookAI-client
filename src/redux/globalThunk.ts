@@ -22,7 +22,7 @@ export const getDetailProfileThunk = createAsyncThunk(
   async (router: AppRouterInstance, { getState, rejectWithValue }) => {
     const res = await AuthService.getDetailProfile()
     if (res?.error) {
-      router.push(routes.notFound.source)
+      router.replace(routes.notFound.source)
       notify('error', res?.msg)
       rejectWithValue(res?.msg)
     }

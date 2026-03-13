@@ -7,10 +7,12 @@ export interface IRegister {
   phone?: string
   dateOfBirth: Date
   gender: GenderEnum
+  sub: string
 }
 
 export interface ILogin {
   email: string
+  sub: string
 }
 
 export interface ITokenData {

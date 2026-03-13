@@ -4,6 +4,7 @@ import icons from '@/components/icons'
 import { IWardrobe } from '@/interfaces/wardrobe'
 import { BooleanEnum } from '@/utils/enum/common'
 import { Col, Image, Row } from 'antd'
+import { memo } from 'react'
 
 interface SelectedWardrobeProps {
   selectedWardrobe: IWardrobe
@@ -18,7 +19,7 @@ const SelectedWardrobe = ({ selectedWardrobe, setUpsertWardrobe }: SelectedWardr
           <Image
             src={selectedWardrobe?.image}
             alt={selectedWardrobe?.name}
-            className='w-full object-contain rounded-md'
+            className='w-47.5! object-contain rounded-md'
           />
         </Col>
         <Col span={19}>
@@ -50,4 +51,4 @@ const SelectedWardrobe = ({ selectedWardrobe, setUpsertWardrobe }: SelectedWardr
   )
 }
 
-export default SelectedWardrobe
+export default memo(SelectedWardrobe)

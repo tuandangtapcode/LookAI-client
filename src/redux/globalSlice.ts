@@ -7,14 +7,12 @@ interface InitialState {
   user: IUser | null
   isCheckAuth: boolean
   listSystemKey: ISystemkey[]
-  routerBeforeLogin: string | null
 }
 
 const initialState: InitialState = {
   user: null,
   isCheckAuth: false,
-  listSystemKey: [],
-  routerBeforeLogin: null
+  listSystemKey: []
 }
 
 const globalSlice = createSlice({
@@ -29,9 +27,6 @@ const globalSlice = createSlice({
     },
     setListSystemKey: (state, action: PayloadAction<ISystemkey[]>) => {
       state.listSystemKey = action.payload
-    },
-    setRouterBeforeLogin: (state, action: PayloadAction<string | null>) => {
-      state.routerBeforeLogin = action.payload
     }
   },
   extraReducers(builder) {

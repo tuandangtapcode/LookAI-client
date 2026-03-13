@@ -27,6 +27,7 @@ const Register = () => {
   const pathName = usePathname()
   const { listSystemKey } = useSelector(globalSelector)
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
+  const [formData, setFormData] = useState<any>()
 
   const handleLoginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -34,10 +35,10 @@ const Register = () => {
         setLoading(true)
         const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
         const dataFromGoogle = userInfor?.data
-        const formData = form.getFieldsValue()
         const res = await AuthService.register({
           ...formData,
           email: dataFromGoogle.email,
+          sub: dataFromGoogle.sub,
           userName: dataFromGoogle.name,
           avatar: dataFromGoogle.picture
         })
@@ -58,7 +59,8 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      await form.validateFields()
+      const values = await form.validateFields()
+      setFormData(values)
       handleLoginGoogle()
     } catch (error) {
       console.log('error', error)

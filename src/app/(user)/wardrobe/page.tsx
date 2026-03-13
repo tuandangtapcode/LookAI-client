@@ -1,10 +1,11 @@
 'use client'
 import Spin from '@/components/spin'
+import { useCheckDeviceScreen } from '@/hooks/common'
 import { useGenerateItemCategoryMenu, useItemTypes } from '@/hooks/item-type'
 import { IGetListWardrobe, IWardrobe } from '@/interfaces/wardrobe'
 import WardrobeService from '@/services/wardrobe'
 import { BooleanEnum, ItemCategoryEnum } from '@/utils/enum/common'
-import { Card, Checkbox, Col, Empty, Grid, Input, Menu, Row, Select } from 'antd'
+import { Card, Checkbox, Col, Empty, Input, Menu, Row, Select } from 'antd'
 import { debounce } from 'lodash'
 import { useEffect, useState } from 'react'
 import 'swiper/css'
@@ -13,24 +14,17 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import SelectedWardrobe from './_components/SelectedWardrobe'
 import UpsertWardrobe from './_modal/UpsertWardrobe'
 
-const { useBreakpoint } = Grid
-
 const Wardrobe = () => {
   const [upsertWardrobe, setUpsertWardrobe] = useState<IWardrobe | boolean>(false)
   const [wardrobes, setWardrobes] = useState<IWardrobe[]>([])
   const [selectedWardrobe, setSelectedWardrobe] = useState<IWardrobe>()
   const [loading, setLoading] = useState(false)
   const [query, setQuery] = useState<IGetListWardrobe>({
-    itemCategory: ItemCategoryEnum.TOP,
-    itemTypeId: null,
-    color: null,
-    size: null,
-    isFavourite: null
+    itemCategory: ItemCategoryEnum.TOP
   })
   const [swiperInstance, setSwiperInstance] = useState<any>()
-  const screens = useBreakpoint()
-  const isMobile = !screens.md
-  const { itemTypes, loading: loadingSelect } = useItemTypes()
+  const isMobile = useCheckDeviceScreen('mobile')
+  const { itemTypes } = useItemTypes()
 
   const getListWardrobe = async () => {
     try {
@@ -53,23 +47,25 @@ const Wardrobe = () => {
   }, [query])
 
   return (
-    <Spin loading={loading || loadingSelect}>
+    <div className='h-[calc(100dvh-124px)] overflow-hidden'>
       <Row gutter={[0, 12]}>
         <Col xxl={1} xl={2} lg={2} md={2} sm={24} xs={24}>
-          <Menu
-            selectedKeys={[`${query?.itemCategory}`]}
-            items={useGenerateItemCategoryMenu()}
-            {...(!isMobile && { inlineCollapsed: true })}
-            mode={isMobile ? 'horizontal' : 'inline'}
-            onClick={({ key }) => {
-              if (key === 'create') {
-                setUpsertWardrobe(true)
-              } else {
-                setQuery((pre) => ({ ...pre, itemCategory: Number(key) }))
-              }
-            }}
-            className={`${isMobile ? 'w-full' : 'w-15!'}`}
-          />
+          <div className='px-2'>
+            <Menu
+              selectedKeys={[`${query?.itemCategory}`]}
+              items={useGenerateItemCategoryMenu()}
+              {...(isMobile && { inlineCollapsed: true })}
+              mode={!isMobile ? 'horizontal' : 'inline'}
+              onClick={({ key }) => {
+                if (key === 'create') {
+                  setUpsertWardrobe(true)
+                } else {
+                  setQuery((pre) => ({ ...pre, itemCategory: Number(key) }))
+                }
+              }}
+              className={`${!isMobile ? 'w-full' : 'w-15!'}`}
+            />
+          </div>
         </Col>
         <Col xxl={23} xl={22} lg={22} md={22} sm={24} xs={24}>
           <Row className='px-2 mb-3 items-center' gutter={[8, 8]}>
@@ -109,7 +105,7 @@ const Wardrobe = () => {
                 onChange={(e) => {
                   debouncedChangeQuery({
                     ...query,
-                    isFavourite: e.target.checked ? BooleanEnum.TRUE : null
+                    isFavourite: e.target.checked ? BooleanEnum.TRUE : undefined
                   })
                 }}
               >
@@ -117,62 +113,64 @@ const Wardrobe = () => {
               </Checkbox>
             </Col>
           </Row>
-          <div className='flex flex-col gap-6 px-2'>
-            <div className='rounded-2xl bg-white p-4 box-shadow'>
-              <div className='flex flex-wrap items-center justify-between gap-2'>
-                <div className='text-xl font-semibold'>Tủ đồ</div>
-                <div className='rounded-full px-3 py-1 text-sm bg-(--color-primary-matte) text-(--color-primary)'>
-                  {wardrobes?.length} món đồ
-                </div>
-              </div>
-
-              {wardrobes?.length ? (
-                <>
-                  <div className='mt-4'>
-                    <Swiper
-                      modules={[Pagination]}
-                      pagination={{ clickable: true }}
-                      spaceBetween={16}
-                      slidesPerView={2.2}
-                      onSwiper={setSwiperInstance}
-                      breakpoints={{
-                        640: { slidesPerView: 3.2 },
-                        1024: { slidesPerView: 4.2 }
-                      }}
-                    >
-                      {wardrobes?.map((item, index) => (
-                        <SwiperSlide key={item?.id}>
-                          <Card
-                            onClick={() => {
-                              setSelectedWardrobe(item)
-                              swiperInstance?.slideTo(index)
-                            }}
-                            className={`cursor-pointer border-2! ${selectedWardrobe?.id === item?.id ? 'border-(--color-primary)!' : 'border-none'}`}
-                            cover={<img src={item?.image} alt={item?.name} className='h-40 w-full object-cover' />}
-                          >
-                            <Card.Meta
-                              title={<div className='truncate'>{item?.name}</div>}
-                              description={
-                                <div className='text-xs matte-text'>{item?.itemType?.name || 'Chưa phân loại'}</div>
-                              }
-                            />
-                          </Card>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
+          <Spin loading={loading}>
+            <div className='flex flex-col px-2 overflow-y-auto h-[calc(100%-120px)] md:overflow-hidden md:h-auto'>
+              <div className='rounded-2xl bg-white p-4'>
+                <div className='flex flex-wrap items-center justify-between gap-2'>
+                  <div className='text-xl font-semibold'>Tủ đồ</div>
+                  <div className='rounded-full px-3 py-1 text-sm bg-(--color-primary-matte) text-(--color-primary)'>
+                    {wardrobes?.length} món đồ
                   </div>
-
-                  {selectedWardrobe && (
-                    <SelectedWardrobe selectedWardrobe={selectedWardrobe} setUpsertWardrobe={setUpsertWardrobe} />
-                  )}
-                </>
-              ) : (
-                <div className='mt-4'>
-                  <Empty description='Chưa có trang phục nào trong tủ đồ.' />
                 </div>
-              )}
+
+                {wardrobes?.length ? (
+                  <>
+                    <div className='mt-4'>
+                      <Swiper
+                        modules={[Pagination]}
+                        pagination={{ clickable: true }}
+                        spaceBetween={16}
+                        slidesPerView={2.2}
+                        onSwiper={setSwiperInstance}
+                        breakpoints={{
+                          640: { slidesPerView: 3.2 },
+                          1024: { slidesPerView: 4.2 }
+                        }}
+                      >
+                        {wardrobes?.map((item, index) => (
+                          <SwiperSlide key={item?.id}>
+                            <Card
+                              onClick={() => {
+                                setSelectedWardrobe(item)
+                                swiperInstance?.slideTo(index)
+                              }}
+                              className={`cursor-pointer border-2! ${selectedWardrobe?.id === item?.id ? 'border-(--color-primary)!' : 'border-none'}`}
+                              cover={<img src={item?.image} alt={item?.name} className='h-40 w-full object-cover' />}
+                            >
+                              <Card.Meta
+                                title={<div className='truncate'>{item?.name}</div>}
+                                description={
+                                  <div className='text-xs matte-text'>{item?.itemType?.name || 'Chưa phân loại'}</div>
+                                }
+                              />
+                            </Card>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+
+                    {selectedWardrobe && (
+                      <SelectedWardrobe selectedWardrobe={selectedWardrobe} setUpsertWardrobe={setUpsertWardrobe} />
+                    )}
+                  </>
+                ) : (
+                  <div className='mt-4'>
+                    <Empty description='Chưa có trang phục nào trong tủ đồ.' />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          </Spin>
         </Col>
       </Row>
 
@@ -186,7 +184,7 @@ const Wardrobe = () => {
           itemTypes={itemTypes}
         />
       )}
-    </Spin>
+    </div>
   )
 }
 

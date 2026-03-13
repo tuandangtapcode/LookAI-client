@@ -34,6 +34,10 @@ const Header = () => {
     {
       href: routes.home.source,
       label: 'Trang chủ'
+    },
+    {
+      href: routes.packagesList.source,
+      label: 'Gói dịch vụ'
     }
   ]
 

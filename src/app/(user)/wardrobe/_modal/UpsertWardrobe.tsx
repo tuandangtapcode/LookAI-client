@@ -79,8 +79,6 @@ const UpsertWardrobe = ({
       onCancel={onCancel}
       onSubmit={handleSubmit}
       loading={loading}
-      centered
-      width='60vw'
     >
       <Form form={form} layout='vertical'>
         <Row gutter={[8, 0]}>

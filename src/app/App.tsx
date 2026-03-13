@@ -3,17 +3,19 @@ import { getDetailProfileThunk, getListSystemkeyThunk } from '@/redux/globalThun
 import { AppDispatch, globalSelector } from '@/redux/store'
 import { adminRoutes, routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './globals.css'
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false)
-  const { isCheckAuth, routerBeforeLogin } = useSelector(globalSelector)
+  const { isCheckAuth } = useSelector(globalSelector)
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
   const pathName = usePathname()
+  const searchParams = useSearchParams()
+  const redir = searchParams.get('redir')
 
   const getListSystemkey = async () => {
     try {
@@ -30,15 +32,15 @@ const App = ({ children }: { children: React.ReactNode }) => {
       const user = await dispatch(getDetailProfileThunk(router)).unwrap()
       // SocketService.connect()
       // SocketService.addOnlineUser(user?.id)
-      if (routerBeforeLogin) return router.push(routerBeforeLogin)
+      if (redir) return router.replace(redir)
       if ([routes.login.source, routes.register.source].includes(pathName)) {
         if (user?.role === UserRoleEnum.ADMIN) {
-          router.push(routes.dashboard.source)
+          router.replace(routes.dashboard.source)
         } else {
-          router.push(routes.home.source)
+          router.replace(routes.home.source)
         }
       } else if (user?.role === UserRoleEnum.ADMIN && adminRoutes.find((i) => i.includes(pathName))) {
-        router.push(pathName)
+        router.replace(pathName)
       }
     } finally {
       setLoading(false)

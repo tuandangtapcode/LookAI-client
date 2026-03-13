@@ -8,5 +8,6 @@ export const SYSTEM_KEY = {
   GENDER: 'Gender',
   USER_ROLE: 'UserRole',
   ITEM_CATEGORY: 'ItemCategory',
-  USER_SUBSCRIPTION_STATUS: 'UserSubscriptionStatus'
+  USER_SUBSCRIPTION_STATUS: 'UserSubscriptionStatus',
+  SUBSCRIPTION_HISTORY_STATUS: 'SubscriptionHistoryStatus'
 }
