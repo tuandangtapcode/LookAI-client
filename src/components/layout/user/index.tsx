@@ -45,6 +45,11 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       role: [UserRoleEnum.USER]
     },
     {
+      key: routes.myFeedbacks.source,
+      label: 'Đóng góp ý kiến',
+      role: [UserRoleEnum.USER]
+    },
+    {
       key: 'logout',
       label: 'Đăng xuất',
       role: [UserRoleEnum.STYLIST, UserRoleEnum.USER]
@@ -78,7 +83,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       <Header />
       {noFooterRoutes.includes(`/${splitedPath}`) ? (
         <div className='bg-(--color-primary-matte) p-3'>
-          <div className='bg-gray-100 text-black h-full rounded-md py-3 px-4'>
+          <div className='bg-transparent text-black h-full rounded-md py-3 px-4'>
             {menuDropdown}
             <div className='mt-2'>{children}</div>
           </div>
@@ -86,7 +91,9 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
       ) : (
         <>
           <div className='bg-(--color-primary-matte) py-10'>
-            <div className='flex w-[90%] md:w-[85%] lg:w-[80%] m-auto h-[calc()100dvh] gap-x-3 md:gap-x-6'>
+            <div
+              className={`flex ${!isPc && 'flex-col'} w-[90%] md:w-[85%] lg:w-[80%] m-auto h-[calc()100dvh] gap-y-2 gap-x-2`}
+            >
               {isPc ? (
                 <div className='w-[27%] bg-white rounded-xl self-start'>
                   <div className='pt-3 px-5 mb-5'>

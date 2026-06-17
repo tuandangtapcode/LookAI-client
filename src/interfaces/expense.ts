@@ -17,7 +17,7 @@ export interface ICreateExpense {
   forYear: number
 }
 
-export interface IUpdateExpense extends ICreateExpense {
+export type IUpdateExpense = Partial<ICreateExpense> & {
   expenseId: string
 }
 

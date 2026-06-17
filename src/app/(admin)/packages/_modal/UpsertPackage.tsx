@@ -3,6 +3,7 @@ import Modal from '@/components/modal'
 import TinyEditor from '@/components/tiny-editor'
 import { IPackage } from '@/interfaces/package'
 import PackageService from '@/services/package'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, Form, Input, InputNumber, Row } from 'antd'
 import { useEffect, useState } from 'react'
@@ -21,16 +22,21 @@ const UpsertPackage = ({ open, onCancel, onOk }: UpsertPackageProps) => {
   const handleSubmit = async () => {
     try {
       setLoading(true)
+
       const values = await form.validateFields()
       const body = {
         ...values,
         packageId: isEdit ? open?.id : undefined
       }
+
       const res = isEdit ? await PackageService.updatePackage(body) : await PackageService.createPackage(body)
-      if (res?.error) return
+      if (res?.error) return notify('error', res?.msg)
+
       onOk()
       notify('success', res?.msg)
       onCancel()
+    } catch (error) {
+      logError('UpsertPackage.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

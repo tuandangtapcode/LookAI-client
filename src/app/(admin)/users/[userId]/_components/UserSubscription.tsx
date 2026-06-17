@@ -3,6 +3,7 @@ import Spin from '@/components/spin'
 import { useGenerateUserSubscriptionDetail } from '@/hooks/user-subscription'
 import { IUserSubscription } from '@/interfaces/user-subscription'
 import UserSubscriptionService from '@/services/user-subscription'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Descriptions } from 'antd'
 import { useEffect, useState } from 'react'
@@ -18,9 +19,13 @@ const UserSubscription = ({ userId }: UserSubscriptionProps) => {
   const getDetailUserSubscription = async () => {
     try {
       setLoading(true)
+
       const res = await UserSubscriptionService.getDetailUserSubscription(userId)
       if (res?.error) return notify('error', res?.msg)
+
       setUserSubscription(res?.data)
+    } catch (error) {
+      logError('UserSubscription.tsx-getDetailUserSubscription', error)
     } finally {
       setLoading(false)
     }

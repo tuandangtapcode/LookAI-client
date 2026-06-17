@@ -11,8 +11,9 @@ export const getListSystemkeyThunk = createAsyncThunk(
     const res = await CommonService.getListSystemkey()
     if (res?.error) {
       notify('error', res?.msg)
-      rejectWithValue(res?.msg)
+      return rejectWithValue(res?.msg)
     }
+
     return res?.data
   }
 )
@@ -24,8 +25,9 @@ export const getDetailProfileThunk = createAsyncThunk(
     if (res?.error) {
       router.replace(routes.notFound.source)
       notify('error', res?.msg)
-      rejectWithValue(res?.msg)
+      return rejectWithValue(res?.msg)
     }
+
     return res?.data
   }
 )

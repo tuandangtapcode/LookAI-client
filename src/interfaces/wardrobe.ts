@@ -1,5 +1,5 @@
 import { BooleanEnum, ItemCategoryEnum } from '@/utils/enum/common'
-import { IBaseData } from './common'
+import { IBaseData, IPagination } from './common'
 import { IItemType } from './item-type'
 
 export interface IWardrobe extends IBaseData {
@@ -23,14 +23,20 @@ export interface ICreateWardrobe {
   isFavourite: BooleanEnum
 }
 
-export interface IUpdateWardrobe extends ICreateWardrobe {
+export type IUpdateWardrobe = Partial<ICreateWardrobe> & {
   wardrobeId: string
 }
 
-export interface IGetListWardrobe {
+export interface IGetListWardrobe extends IPagination {
   itemCategory: ItemCategoryEnum
   itemTypeId?: string
   color?: string
   size?: string
   isFavourite?: BooleanEnum
+}
+
+export interface IGetQuantityWardrobe {
+  itemCategory: ItemCategoryEnum
+  itemTypeId: string
+  quantity: number
 }

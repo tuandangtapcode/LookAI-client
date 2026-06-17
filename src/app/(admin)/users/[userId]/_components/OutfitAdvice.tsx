@@ -4,6 +4,7 @@ import Table from '@/components/table'
 import { useGenerateOutfitAdviceColumn } from '@/hooks/outfit-advice'
 import { IGetListOutfitAdvice, IOutfitAdvice } from '@/interfaces/outfit-adivce'
 import OutfitAdviceService from '@/services/outfit-advice'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { useEffect, useState } from 'react'
 
@@ -25,10 +26,14 @@ const OutfitAdvice = ({ userId }: OutfitAdviceProps) => {
   const getListOutfitAdvice = async () => {
     try {
       setLoading(true)
+
       const res = await OutfitAdviceService.getListOutfitAdviceByAdmin(query)
       if (res?.error) return notify('error', res?.msg)
+
       setOutfitAdvices(res?.data?.list)
       setTotal(res?.data?.total)
+    } catch (error) {
+      logError('OutfitAdvice.tsx-getListOutfitAdvice', error)
     } finally {
       setLoading(false)
     }

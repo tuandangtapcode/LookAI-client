@@ -19,7 +19,7 @@ export interface ICreatePackage {
   isActive: BooleanEnum
 }
 
-export interface IUpdatePackage extends ICreatePackage {
+export type IUpdatePackage = Partial<ICreatePackage> & {
   packageId: string
 }
 

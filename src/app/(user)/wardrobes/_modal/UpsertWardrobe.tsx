@@ -7,8 +7,9 @@ import FileService from '@/services/file'
 import WardrobeService from '@/services/wardrobe'
 import { BooleanEnum, ItemCategoryEnum } from '@/utils/enum/common'
 import { handleBeforeUpload } from '@/utils/helper/file'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
-import { Checkbox, Col, Form, Image, Input, Row, Select, Upload } from 'antd'
+import { Checkbox, Col, Form, Input, Row, Select, Upload } from 'antd'
 import { useEffect, useState } from 'react'
 
 interface UpsertWardrobeProps {
@@ -16,18 +17,10 @@ interface UpsertWardrobeProps {
   itemCategory: ItemCategoryEnum
   onCancel: () => void
   setWardrobes: (callback: (prev: IWardrobe[]) => IWardrobe[]) => void
-  setSelectedWardrobe: (wardrobe: IWardrobe) => void
   itemTypes: IItemType[]
 }
 
-const UpsertWardrobe = ({
-  open,
-  itemCategory,
-  onCancel,
-  setWardrobes,
-  setSelectedWardrobe,
-  itemTypes
-}: UpsertWardrobeProps) => {
+const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes }: UpsertWardrobeProps) => {
   const isEdit = typeof open !== 'boolean' && open?.id
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
@@ -36,12 +29,15 @@ const UpsertWardrobe = ({
   const handleSubmit = async () => {
     try {
       setLoading(true)
+
       const { file, isFavourite, ...rest } = await form.validateFields()
       let resFile: IAxiosResponse<string> | undefined
+
       if (file?.file) {
         resFile = await FileService.uploadSingleFile({ file: file.file })
         if (resFile?.error) return notify('error', resFile?.msg)
       }
+
       const body = {
         ...rest,
         itemCategory,
@@ -49,14 +45,20 @@ const UpsertWardrobe = ({
         isFavourite: isFavourite ? BooleanEnum.TRUE : BooleanEnum.FALSE,
         wardrobeId: isEdit ? open?.id : undefined
       }
+
       const res = isEdit ? await WardrobeService.updateWardrobe(body) : await WardrobeService.createWardrobe(body)
       if (res?.error) return notify('error', res?.msg)
+
+      const itemType = itemTypes.find((i) => i?.id === body?.itemTypeId)
+      const newWardrobe = { ...res?.data, itemType }
+
       setWardrobes((prev) =>
-        isEdit ? prev.map((item) => (item.id === res?.data.id ? res?.data : item)) : [res?.data, ...prev]
+        isEdit ? prev.map((item) => (item.id === res?.data.id ? newWardrobe : item)) : [newWardrobe, ...prev]
       )
-      setSelectedWardrobe(res?.data)
       notify('success', res?.msg)
       onCancel()
+    } catch (error) {
+      logError('UpsertWardrobe.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }
@@ -96,7 +98,11 @@ const UpsertWardrobe = ({
                 maxCount={1}
                 fileList={[]}
               >
-                <Image src={preview} alt='' preview={false} className='object-contain' />
+                {preview ? (
+                  <img draggable={false} src={preview} alt='avatar' className='w-full h-full object-cover' />
+                ) : (
+                  <div>Chọn ảnh</div>
+                )}
               </Upload>
             </Form.Item>
           </Col>

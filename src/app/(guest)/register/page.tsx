@@ -2,14 +2,13 @@
 import Button from '@/components/button'
 import icons from '@/components/icons'
 import Spin from '@/components/spin'
-import { ITokenData } from '@/interfaces/auth'
 import globalSlice from '@/redux/globalSlice'
 import { globalSelector } from '@/redux/store'
 import AuthService from '@/services/auth'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { routes } from '@/utils/constant/route'
-import { UserRoleEnum } from '@/utils/enum/user'
-import { decodeData, getListComboKey } from '@/utils/helper/common'
+import { getListComboKey } from '@/utils/helper/common'
+import { logError } from '@/utils/helper/log'
 import { getRegexPhoneNumber } from '@/utils/helper/string'
 import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
@@ -33,8 +32,10 @@ const Register = () => {
     onSuccess: async (tokenResponse) => {
       try {
         setLoading(true)
+
         const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
         const dataFromGoogle = userInfor?.data
+
         const res = await AuthService.register({
           ...formData,
           email: dataFromGoogle.email,
@@ -43,14 +44,10 @@ const Register = () => {
           avatar: dataFromGoogle.picture
         })
         if (res?.error) return notify('error', res?.msg)
-        const tokenData: ITokenData = decodeData(res?.data)
-        if (!tokenData?.id || !tokenData?.role) return router.push(routes.forbidden.source)
+
         dispatch(globalSlice.actions.setIsCheckAuth(true))
-        if (![UserRoleEnum.USER, UserRoleEnum.STYLIST].includes(tokenData?.role)) {
-          router.push(routes.dashboard.source)
-        } else {
-          router.push(routes.home.source)
-        }
+      } catch (error) {
+        logError('Register.tsx-handleLoginGoogle', error)
       } finally {
         setLoading(false)
       }
@@ -63,7 +60,7 @@ const Register = () => {
       setFormData(values)
       handleLoginGoogle()
     } catch (error) {
-      console.log('error', error)
+      logError('Register.tsx-handleSubmit', error)
     }
   }
 
@@ -72,7 +69,7 @@ const Register = () => {
       <Form layout='vertical' form={form}>
         <Row className='justify-between items-center'>
           <Col xxl={11} xl={11} lg={11} md={11} className='h-full'>
-            <Image width='100%' preview={false} src='/logo-header.png' alt='' className='rounded-[12px]' />
+            <Image width='100%' preview={false} src='/logo.png' alt='' className='rounded-[12px]' />
           </Col>
           <Col xxl={11} xl={11} lg={11} md={11}>
             <Row>

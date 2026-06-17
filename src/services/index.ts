@@ -34,16 +34,16 @@ axiosInstance.interceptors.response.use(
         'error',
         'Hệ thống đang tạm thời gián đoạn. Xin vui lòng trở lại sau hoặc thông báo với ban quản trị để được hỗ trợ'
       )
-    } else if (+error?.response?.status == 400) {
+    } else if (+error?.response?.status === 400) {
       notify('error', 'Hệ thống xảy ra lỗi. Xin vui lòng trở lại sau hoặc thông báo với ban quản trị để được hỗ trợ')
-    } else if (+error?.response?.status == 401) {
+    } else if (+error?.response?.status === 401) {
       notify('error', 'Hệ thống xảy ra lỗi. Phiên làm việc đã hết hạn. Hãy đăng nhập lại để tiếp tục sử dụng')
       window.location.replace('dang-nhap')
-    } else if (+error?.response?.status == 403) {
+    } else if (+error?.response?.status === 403) {
       notify('error', 'Bạn không có quyền truy cập')
     } else if (error.code === 'ERR_NETWORK') {
       notify('error', 'Hệ thống đang bị gián đoạn, vui lòng kiểm tra lại đường truyền')
-    } else if (+error?.response?.status == 404) {
+    } else if (+error?.response?.status === 404) {
       notify('error', 'API không tồn tại')
     }
     return Promise.reject(error)

@@ -5,6 +5,7 @@ import { globalSelector } from '@/redux/store'
 import ItemTypeService from '@/services/item-type'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, Form, Input, Row, Select } from 'antd'
 import { useEffect, useState } from 'react'
@@ -26,16 +27,21 @@ const UpsertItemType = ({ open, onCancel, onOk }: UpsertItemTypeProps) => {
   const handleSubmit = async () => {
     try {
       setLoading(true)
+
       const values = await form.validateFields()
       const body = {
         ...values,
         itemTypeId: isEdit ? open?.id : undefined
       }
+
       const res = isEdit ? await ItemTypeService.updateItemType(body) : await ItemTypeService.createItemType(body)
-      if (res?.error) return
+      if (res?.error) return notify('error', res?.msg)
+
       onOk()
       notify('success', res?.msg)
       onCancel()
+    } catch (error) {
+      logError('UpsertItemType.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

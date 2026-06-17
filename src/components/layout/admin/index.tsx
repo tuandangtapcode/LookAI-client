@@ -53,6 +53,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       icon: icons.ICON_ITEM_TYPE_ADMIN
     },
     {
+      key: routes.feedbacks.source,
+      label: 'Phản hồi',
+      icon: icons.ICON_FEEDBACK
+    },
+    {
+      key: routes.logs.source,
+      label: 'Log',
+      icon: icons.ICON_LOG
+    },
+    {
       key: 'logout',
       label: 'Đăng xuất',
       icon: icons.ICON_LOGOUT

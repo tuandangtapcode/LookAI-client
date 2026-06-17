@@ -5,12 +5,13 @@ import { ReactNode } from 'react'
 interface SpinProps {
   loading: boolean
   children: ReactNode
+  fullScreen?: boolean
 }
 
-const Spin = ({ loading, children }: SpinProps) => {
+const Spin = ({ loading, children, fullScreen }: SpinProps) => {
   if (loading)
     return (
-      <div className='w-full h-full flex justify-center items-center'>
+      <div className={`w-full flex justify-center items-center ${fullScreen ? 'min-h-screen' : 'h-full'}`}>
         <AntdSpin />
       </div>
     )

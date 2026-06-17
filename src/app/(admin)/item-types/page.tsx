@@ -8,21 +8,17 @@ import UpsertItemType from './_modal/UpsertItemType'
 
 const ItemTypes = () => {
   const { itemTypes, loading, refresh } = useItemTypes()
-  const [openUpserttUpdateItemType, setOpenUpserttUpdateItemType] = useState<IItemType | boolean>(false)
+  const [upserttUpdateItemType, setUpserttUpdateItemType] = useState<IItemType | boolean>(false)
 
   return (
     <div>
-      <HeaderSection title='Quản lý loại trang phục' onAddButton={() => setOpenUpserttUpdateItemType(true)} />
+      <HeaderSection title='Quản lý loại trang phục' onAddButton={() => setUpserttUpdateItemType(true)} />
       <div>
-        <Table columns={useGenerateItemTypeColumn(setOpenUpserttUpdateItemType)} data={itemTypes} loading={loading} />
+        <Table columns={useGenerateItemTypeColumn(setUpserttUpdateItemType)} data={itemTypes} loading={loading} />
       </div>
 
-      {openUpserttUpdateItemType && (
-        <UpsertItemType
-          open={openUpserttUpdateItemType}
-          onCancel={() => setOpenUpserttUpdateItemType(false)}
-          onOk={refresh}
-        />
+      {upserttUpdateItemType && (
+        <UpsertItemType open={upserttUpdateItemType} onCancel={() => setUpserttUpdateItemType(false)} onOk={refresh} />
       )}
     </div>
   )

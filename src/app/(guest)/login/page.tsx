@@ -2,11 +2,10 @@
 import Button from '@/components/button'
 import icons from '@/components/icons'
 import Spin from '@/components/spin'
-import { ITokenData } from '@/interfaces/auth'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
-import { decodeData } from '@/utils/helper/common'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
 import { Col, Form, Image, Row } from 'antd'
@@ -25,15 +24,16 @@ const Login = () => {
     onSuccess: async (tokenResponse) => {
       try {
         setLoading(true)
+
         const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
         const dataFromGoogle = userInfor?.data
-        console.log('userInfor?.data', userInfor?.data)
 
         const res = await AuthService.login({ email: dataFromGoogle.email, sub: dataFromGoogle.sub })
         if (res?.error) return notify('error', res?.msg)
-        const tokenData: ITokenData = decodeData(res?.data)
-        if (!tokenData?.id || !tokenData?.role) return router.push(routes.forbidden.source)
+
         dispatch(globalSlice.actions.setIsCheckAuth(true))
+      } catch (error) {
+        logError('Login.tsx-handleLoginGoogle', error)
       } finally {
         setLoading(false)
       }
@@ -45,7 +45,7 @@ const Login = () => {
       <Form layout='vertical'>
         <Row className='justify-between items-center'>
           <Col xxl={11} xl={11} lg={11} md={11} className='h-full'>
-            <Image width='100%' preview={false} src='/logo-header.png' alt='' className='rounded-[12px]' />
+            <Image width='100%' preview={false} src='/logo.png' alt='' className='rounded-[12px]' />
           </Col>
           <Col xxl={11} xl={11} lg={11} md={11}>
             <Row>

@@ -6,6 +6,7 @@ import PackageService from '@/services/package'
 import PaymentService from '@/services/payment'
 import { routes } from '@/utils/constant/route'
 import { SubscriptionHistoryStatusEnum } from '@/utils/enum/subscription-history'
+import { logError } from '@/utils/helper/log'
 import { formatMoney } from '@/utils/helper/string'
 import notify from '@/utils/notify'
 import { useParams, useRouter } from 'next/navigation'
@@ -20,9 +21,13 @@ const Checkout = () => {
   const getDetailPackage = async () => {
     try {
       setLoading(true)
+
       const res = await PackageService.getDetailPackage(packageId)
       if (res?.error) return router.replace(routes.notFound.source)
+
       setPackageDetail(res.data)
+    } catch (error) {
+      logError('Checkout.tsx-getDetailPackage', error)
     } finally {
       setLoading(false)
     }
@@ -31,7 +36,9 @@ const Checkout = () => {
   const handleCompleteCheckout = async () => {
     try {
       setLoading(true)
+
       if (!packageDetail) return
+
       const res = await PaymentService.createPayment({
         packageId: packageDetail?.id,
         amount: packageDetail?.price,
@@ -39,8 +46,11 @@ const Checkout = () => {
         subscriptionHistoryStatus: SubscriptionHistoryStatusEnum.REGISTER
       })
       if (res?.error) return notify('error', res?.msg)
+
       notify('success', 'Thanh toán thành công')
       router.push(routes.userSubscription.source)
+    } catch (error) {
+      logError('Checkout.tsx-handleCompleteCheckout', error)
     } finally {
       setLoading(false)
     }

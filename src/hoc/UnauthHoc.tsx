@@ -1,11 +1,10 @@
 'use client'
 import Spin from '@/components/spin'
-import { ITokenData } from '@/interfaces/auth'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
-import { decodeData } from '@/utils/helper/common'
+import { logError } from '@/utils/helper/log'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -24,20 +23,23 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
   const checkAuth = async () => {
     try {
       setLoading(true)
+
       const res = await AuthService.checkAuth()
       if (!res?.data) {
         setAuthorized(true)
         return
       }
-      const tokenData: ITokenData = decodeData(res?.data)
-      if (!tokenData?.id || !tokenData?.role) return router.push(routes.forbidden.source)
-      if (!allowRoles.includes(tokenData?.role) && tokenData?.role === UserRoleEnum.ADMIN) {
-        return router.push(routes.dashboard.source)
-      } else if (!allowRoles.includes(tokenData?.role) && tokenData?.role !== UserRoleEnum.ADMIN) {
-        return router.push(routes.forbidden.source)
+
+      if (!res?.data?.id || !res?.data?.role) return router.replace(routes.forbidden.source)
+
+      if ([UserRoleEnum.ADMIN].includes(res?.data?.role)) {
+        return router.replace(routes.dashboard.source)
       }
+
       dispatch(globalSlice.actions.setIsCheckAuth(true))
       setAuthorized(true)
+    } catch (error) {
+      logError('UnauthHoc.tsx-checkAuth', error)
     } finally {
       setLoading(false)
     }
@@ -48,9 +50,9 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
   }, [])
 
   return (
-    <div className='h-screen'>
-      <Spin loading={loading || !authorized}>{children}</Spin>
-    </div>
+    <Spin loading={loading || !authorized} fullScreen>
+      {children}
+    </Spin>
   )
 }
 

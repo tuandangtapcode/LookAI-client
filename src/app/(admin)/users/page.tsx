@@ -8,6 +8,7 @@ import UserService from '@/services/user'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { routes } from '@/utils/constant/route'
 import { getListComboKey } from '@/utils/helper/common'
+import { logError } from '@/utils/helper/log'
 import { Col, DatePicker, Input, Row, Select } from 'antd'
 import { debounce } from 'lodash'
 import { useRouter } from 'next/navigation'
@@ -27,12 +28,16 @@ const Users = () => {
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
 
   const getListUser = async () => {
-    setLoading(true)
     try {
+      setLoading(true)
+
       const res = await UserService.getListUser(query)
       if (res?.error) return
+
       setUsers(res?.data?.list)
       setTotal(res?.data?.total)
+    } catch (error) {
+      logError('Users.tsx-getListUser', error)
     } finally {
       setLoading(false)
     }

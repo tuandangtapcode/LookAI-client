@@ -1,12 +1,11 @@
 'use client'
 import Spin from '@/components/spin'
-import { ITokenData } from '@/interfaces/auth'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
-import { decodeData } from '@/utils/helper/common'
-import { useRouter } from 'next/navigation'
+import { logError } from '@/utils/helper/log'
+import { usePathname, useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -20,17 +19,28 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
   const [authorized, setAuthorized] = useState(false)
   const router = useRouter()
   const dispatch = useDispatch()
+  const pathName = usePathname()
 
   const checkAuth = async () => {
     try {
       setLoading(true)
+
       const res = await AuthService.checkAuth()
-      if (!res?.data) return router.push(routes.forbidden.source)
-      const tokenData: ITokenData = decodeData(res?.data)
-      if (!tokenData?.id || !tokenData?.role) return router.push(routes.forbidden.source)
-      if (!allowRoles.includes(tokenData?.role)) return router.push(routes.forbidden.source)
+      if (!res?.data) {
+        const redirectUrl = pathName
+          ? `${routes.login.source}?redir=${encodeURIComponent(pathName)}`
+          : routes.login.source
+
+        return router.replace(redirectUrl)
+      }
+
+      if (!res?.data?.id || !res?.data?.role) return router.replace(routes.forbidden.source)
+      if (!allowRoles.includes(res?.data?.role)) return router.replace(routes.forbidden.source)
+
       setAuthorized(true)
       dispatch(globalSlice.actions.setIsCheckAuth(true))
+    } catch (error) {
+      logError('AuthHoc.tsx-checkAuth', error)
     } finally {
       setLoading(false)
     }
@@ -41,9 +51,9 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
   }, [])
 
   return (
-    <div className='h-screen'>
-      <Spin loading={loading || !authorized}>{children}</Spin>
-    </div>
+    <Spin loading={loading || !authorized} fullScreen>
+      {children}
+    </Spin>
   )
 }
 

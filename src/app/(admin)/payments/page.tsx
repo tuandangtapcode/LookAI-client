@@ -4,6 +4,7 @@ import Table from '@/components/table'
 import { useGeneratePaymentColumn } from '@/hooks/payment'
 import { IGetListPayment, IPayment } from '@/interfaces/payment'
 import PaymentService from '@/services/payment'
+import { logError } from '@/utils/helper/log'
 import { Col, Input, Row } from 'antd'
 import { debounce } from 'lodash'
 import { useEffect, useState } from 'react'
@@ -24,10 +25,14 @@ const Payments = () => {
   const getListPayment = async () => {
     try {
       setLoading(true)
+
       const res = await PaymentService.getListPayment(query)
       if (res?.error) return
+
       setPayments(res?.data?.list)
       setTotal(res?.data?.total)
+    } catch (error) {
+      logError('Payments.tsx-getListPayment', error)
     } finally {
       setLoading(false)
     }

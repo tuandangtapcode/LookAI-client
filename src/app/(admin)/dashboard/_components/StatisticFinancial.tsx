@@ -2,6 +2,7 @@
 import Spin from '@/components/spin'
 import { IStatisticFinancial } from '@/interfaces/dashboard'
 import DashboardService from '@/services/dashboard'
+import { logError } from '@/utils/helper/log'
 import { useEffect, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
@@ -20,7 +21,7 @@ const StatisticFinancial = () => {
         const res = await DashboardService.statisticFinancial(params)
         if (res?.data) setData(res.data)
       } catch (error) {
-        console.error(error)
+        logError('StatisticFinancial.tsx-fetchData', error)
       } finally {
         setLoading(false)
       }

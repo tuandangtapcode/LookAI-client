@@ -23,6 +23,7 @@ export const useUserSubscription = () => {
   const { data, isLoading, mutate } = useSWR(user ? `${apiGetSubscriptionByUser}/${user?.id}` : null, () =>
     UserSubscriptionService.getUserSubscription()
   )
+
   return {
     subscription: data?.data,
     loading: isLoading,

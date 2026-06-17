@@ -13,6 +13,7 @@ export const usePackages = (params: IGetListPackage) => {
   const { data, isLoading, mutate } = useSWR(`${baseRoutePackage}${_params}`, () =>
     PackageService.getListPackage(params)
   )
+
   return {
     packages: data?.data || [],
     loading: isLoading,

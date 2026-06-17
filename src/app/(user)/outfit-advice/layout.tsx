@@ -65,7 +65,7 @@ const OutfitAdviceLayout = ({ children }: { children: ReactNode }) => {
                   </div>
                 )}
               >
-                <button className='p-2 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200'>
+                <button className='p-1 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200'>
                   {icons.ICON_MENU}
                 </button>
               </Dropdown>

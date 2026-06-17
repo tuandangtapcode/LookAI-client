@@ -1,12 +1,12 @@
 'use client'
 import { getDetailProfileThunk, getListSystemkeyThunk } from '@/redux/globalThunk'
 import { AppDispatch, globalSelector } from '@/redux/store'
-import { adminRoutes, routes } from '@/utils/constant/route'
+import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
+import { logError } from '@/utils/helper/log'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './globals.css'
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(false)
@@ -20,7 +20,10 @@ const App = ({ children }: { children: React.ReactNode }) => {
   const getListSystemkey = async () => {
     try {
       setLoading(true)
+
       await dispatch(getListSystemkeyThunk())
+    } catch (error) {
+      logError('App.tsx-getListSystemkey', error)
     } finally {
       setLoading(false)
     }
@@ -29,19 +32,16 @@ const App = ({ children }: { children: React.ReactNode }) => {
   const getDetailProfile = async () => {
     try {
       setLoading(true)
+
       const user = await dispatch(getDetailProfileThunk(router)).unwrap()
-      // SocketService.connect()
-      // SocketService.addOnlineUser(user?.id)
+
       if (redir) return router.replace(redir)
-      if ([routes.login.source, routes.register.source].includes(pathName)) {
-        if (user?.role === UserRoleEnum.ADMIN) {
-          router.replace(routes.dashboard.source)
-        } else {
-          router.replace(routes.home.source)
-        }
-      } else if (user?.role === UserRoleEnum.ADMIN && adminRoutes.find((i) => i.includes(pathName))) {
-        router.replace(pathName)
+
+      if ([routes.login.source].includes(pathName) && [UserRoleEnum.ADMIN].includes(user?.role)) {
+        router.replace(routes.dashboard.source)
       }
+    } catch (error) {
+      logError('App.tsx-getDetailProfile', error)
     } finally {
       setLoading(false)
     }

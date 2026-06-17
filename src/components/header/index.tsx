@@ -1,4 +1,5 @@
 'use client'
+import { useCheckDeviceScreen } from '@/hooks/common'
 import { globalSelector } from '@/redux/store'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
@@ -14,6 +15,7 @@ const Header = () => {
   const pathName = usePathname()
   const { user } = useSelector(globalSelector)
   const dispatch = useDispatch()
+  const isPc = useCheckDeviceScreen('pc')
 
   const menuAccountUser: MenuProps['items'] = [
     {
@@ -64,7 +66,7 @@ const Header = () => {
                   href={item.href}
                   className={`${
                     item.href === pathName
-                      ? 'bg-(--color-background)! hover:bg-(--color-background)! text-white! rounded-[30px]! px-4! py-1!'
+                      ? `bg-(--color-background)! hover:bg-(--color-background)! text-white! rounded-[30px]! ${isPc ? 'px-4!' : 'px-2!'} py-1!`
                       : ''
                   }`}
                 >

@@ -1,5 +1,6 @@
 'use client'
 import Button from '@/components/button'
+import { useCheckDeviceScreen } from '@/hooks/common'
 import globalSlice from '@/redux/globalSlice'
 import { globalSelector } from '@/redux/store'
 import { IAxiosResponse } from '@/services'
@@ -9,6 +10,7 @@ import UserService from '@/services/user'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
 import { handleBeforeUpload } from '@/utils/helper/file'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Card, Col, DatePicker, Form, Image, Input, InputNumber, Row, Select, Upload } from 'antd'
 import dayjs from 'dayjs'
@@ -22,25 +24,33 @@ const Profile = () => {
   const dispatch = useDispatch()
   const { user, listSystemKey } = useSelector(globalSelector)
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
+  const isPc = useCheckDeviceScreen('pc')
 
   const handleSubmit = async () => {
     try {
       setLoading(true)
+
       const { file, email, ...rest } = await form.validateFields()
       let resFile: IAxiosResponse<string> | undefined
+
       if (file) {
         resFile = await FileService.uploadSingleFile({ file: file.file })
         if (resFile?.error) return notify('error', resFile?.msg)
       }
+
       const res = await UserService.updateProfile({
         ...rest,
         avatar: resFile?.data ? resFile?.data : user?.avatar
       })
       if (res?.error) return notify('error', res?.msg)
+
       const resProfile = await AuthService.getDetailProfile()
       if (resProfile?.error) return notify('error', resProfile?.msg)
+
       dispatch(globalSlice.actions.setUser(resProfile?.data))
       notify('success', res?.msg)
+    } catch (error) {
+      logError('Profile.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }
@@ -54,7 +64,7 @@ const Profile = () => {
   }, [user])
 
   return (
-    <div className='w-[80%] m-auto'>
+    <div className={`${isPc ? 'w-[80%]' : 'w-full'} m-auto`}>
       <Card title='Thông tin cá nhân'>
         <Form layout='vertical' form={form}>
           <Row gutter={[8, 0]}>

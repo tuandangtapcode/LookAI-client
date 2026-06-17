@@ -37,6 +37,16 @@ export const routes = {
     destination: '/expenses',
     isAdmin: true
   },
+  feedbacks: {
+    source: '/quan-ly-phan-hoi',
+    destination: '/feedbacks',
+    isAdmin: true
+  },
+  logs: {
+    source: '/logs',
+    destination: '/logs',
+    isAdmin: true
+  },
 
   // user
   profile: {
@@ -46,7 +56,7 @@ export const routes = {
   },
   wardrobe: {
     source: '/tu-quan-ao',
-    destination: '/wardrobe',
+    destination: '/wardrobes',
     isAdmin: false
   },
   outfitAdvice: {
@@ -63,6 +73,11 @@ export const routes = {
     source: '/thanh-toan/:packageId',
     destination: '/checkout/:packageId',
     root: '/thanh-toan',
+    isAdmin: false
+  },
+  myFeedbacks: {
+    source: '/phan-hoi',
+    destination: '/my-feedbacks',
     isAdmin: false
   },
 

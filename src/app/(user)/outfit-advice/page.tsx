@@ -5,6 +5,8 @@ import { useUserSubscription } from '@/hooks/user-subscription'
 import { ICreateOutfitAdviceResponse } from '@/interfaces/outfit-adivce'
 import { IUserSubscription } from '@/interfaces/user-subscription'
 import OutfitAdviceService from '@/services/outfit-advice'
+import { UserSubscriptionStatusEnum } from '@/utils/enum/user_subscription'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Form } from 'antd'
 import { useEffect, useState } from 'react'
@@ -21,11 +23,16 @@ const OutfitAdvice = () => {
   const handleSubmit = async () => {
     try {
       setLoading(true)
+
       const values = await form.validateFields()
+
       const res = await OutfitAdviceService.createOutfitAdvice(values)
       if (res?.error) return notify('error', res?.msg)
+
       setResult(res?.data)
       setCurrentSubscription((prev) => prev && { ...prev, usedQuota: prev?.usedQuota + 1 })
+    } catch (error) {
+      logError('OutfitAdvice.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }
@@ -44,9 +51,16 @@ const OutfitAdvice = () => {
             type='saveFullWidth'
             onClick={handleSubmit}
             loading={loading}
-            disabled={currentSubscription?.usedQuota === currentSubscription?.quota}
+            disabled={
+              currentSubscription?.usedQuota === currentSubscription?.quota ||
+              currentSubscription?.status !== UserSubscriptionStatusEnum.ACTIVE
+            }
             tooltip={
-              currentSubscription?.usedQuota === currentSubscription?.quota ? 'Bạn đã sử dụng hết hạn mức tư vấn' : ''
+              currentSubscription?.usedQuota === currentSubscription?.quota
+                ? 'Bạn đã sử dụng hết số lượt tư vấn'
+                : currentSubscription?.status !== UserSubscriptionStatusEnum.ACTIVE
+                  ? 'Gói của bạn đã hết hạn hoặc không còn hiệu lực'
+                  : ''
             }
           >
             Gửi yêu cầu tư vấn

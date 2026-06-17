@@ -12,6 +12,8 @@ type ButtonType =
   | 'outline'
   | 'circle'
   | 'outlineFullWidth'
+  | 'outlineCircle'
+  | 'primaryCircle'
 
 interface ButtonProps {
   type?: ButtonType
@@ -35,20 +37,21 @@ const Button = ({
   size = 'middle'
 }: ButtonProps) => {
   const types: Record<ButtonType, string> = {
-    save: '!bg-[var(--color-primary)] hover:!bg-[var(--color-primary-hover)] text-white',
-    cancel: '!bg-white hover:!bg-white !text-black border !border-[var(--color-primary)]',
+    save: 'bg-(--color-primary)! hover:!bg-(--color-primary-hover)! text-white',
+    cancel: 'bg-white! hover:bg-white! text-black! border border-(--color-primary)!',
     submitLogin:
-      'w-full !bg-white hover:!bg-[#e4e7ec] !text-black border !border-[var(--color-primary)] !rounded-[10px] !h-[40px]',
-    login: '!bg-white hover:!bg-white !text-black !rounded-[30px] !py-[18px] !w-full !text-[15px]',
+      'w-full bg-white! hover:bg-[#e4e7ec]! text-black! border border-(--color-primary)! rounded-[10px]! h-10!',
+    login: 'bg-white! hover:bg-white! text-black! rounded-[30px]! py-4.5! w-full! text-[15px]!',
     register:
-      '!bg-[var(--color-primary-hover)] hover:!bg-[var(--color-primary-hover)] text-white !rounded-[30px] !py-[18px] !w-[110px] !text-[16px]',
+      'bg-(--color-primary-hover)! hover:bg-(--color-primary-hover)! text-white rounded-[30px]! py-4.5! w-27.5! text-[16px]!',
     saveFullWidth:
-      '!bg-[var(--color-primary)] hover:!bg-[var(--color-primary-hover)] text-white !w-full !text-[17px] !font-[600] !py-[18px] !rounded-[30px]',
-    outline:
-      '!bg-white hover:!bg-[var(--color-primary)] !text-black  hover:!text-white border !border-[var(--color-primary)]',
-    circle: '!bg-white hover:!bg-white !text-black !shadow-lg',
+      'bg-(--color-primary)! hover:bg-(--color-primary-hover)! text-white w-full! text-[17px]! font-semibold! py-4.5! rounded-[30px]!',
+    outline: 'bg-white! hover:bg-(--color-primary)! text-black!  hover:text-white! border border-(--color-primary)!',
+    circle: 'bg-white! hover:bg-white! text-black! shadow-lg!',
     outlineFullWidth:
-      '!bg-white hover:!bg-[var(--color-primary)] !text-black  hover:!text-white border !border-[var(--color-primary)] !w-full !text-[16px] !py-[18px] !rounded-[30px]'
+      'bg-white! hover:bg-(--color-primary)! text-black!  hover:text-white! border border-(--color-primary)! w-full! text-[16px]! py-4.5! rounded-[30px]!',
+    outlineCircle: 'bg-white! hover:bg-white! text-black! border border-(--color-primary)!',
+    primaryCircle: 'bg-(--color-primary)! hover:bg-(--color-primary)! text-white!'
   }
 
   return (
@@ -61,7 +64,7 @@ const Button = ({
         icon={icon}
         size={size}
         className={`${types[type]}`}
-        shape={type === 'circle' ? 'circle' : 'default'}
+        shape={['circle', 'outlineCircle', 'primaryCircle'].includes(type) ? 'circle' : 'default'}
       >
         {children}
       </AntdButton>

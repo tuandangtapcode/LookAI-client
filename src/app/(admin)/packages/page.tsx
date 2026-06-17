@@ -8,21 +8,17 @@ import UpsertPackage from './_modal/UpsertPackage'
 
 const Packages = () => {
   const { packages, loading, refresh } = usePackages({})
-  const [openUpsertUpdatePackage, setOpenUpsertUpdatePackage] = useState<IPackage | boolean>(false)
+  const [upsertUpdatePackage, setUpsertUpdatePackage] = useState<IPackage | boolean>(false)
 
   return (
     <div>
-      <HeaderSection title='Quản lý gói' onAddButton={() => setOpenUpsertUpdatePackage(true)} />
+      <HeaderSection title='Quản lý gói' onAddButton={() => setUpsertUpdatePackage(true)} />
       <div>
-        <Table columns={useGeneratePackageColumn(setOpenUpsertUpdatePackage)} data={packages} loading={loading} />
+        <Table columns={useGeneratePackageColumn(setUpsertUpdatePackage)} data={packages} loading={loading} />
       </div>
 
-      {openUpsertUpdatePackage && (
-        <UpsertPackage
-          open={openUpsertUpdatePackage}
-          onCancel={() => setOpenUpsertUpdatePackage(false)}
-          onOk={refresh}
-        />
+      {upsertUpdatePackage && (
+        <UpsertPackage open={upsertUpdatePackage} onCancel={() => setUpsertUpdatePackage(false)} onOk={refresh} />
       )}
     </div>
   )

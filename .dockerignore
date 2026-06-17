@@ -1,0 +1,12 @@
+node_modules
+.git
+.env
+.env._
+.next
+.github
+Dockerfile
+README.md
+AGENTS.md
+CLAUDE.md
+.prettierrc
+_.log

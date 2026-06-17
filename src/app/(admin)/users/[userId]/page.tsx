@@ -2,6 +2,7 @@
 import HeaderDetail from '@/components/header/components/HeaderDetail'
 import { IUser } from '@/interfaces/user'
 import UserService from '@/services/user'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Tabs, TabsProps } from 'antd'
 import { useParams, useRouter } from 'next/navigation'
@@ -44,9 +45,13 @@ const UserDetail = () => {
   const getDetailUser = async () => {
     try {
       setLoading(true)
+
       const res = await UserService.getDetailUser(userId)
       if (res?.error) return notify('error', res?.msg)
+
       setUser(res?.data)
+    } catch (error) {
+      logError('UserDetail.tsx-getDetailUser', error)
     } finally {
       setLoading(false)
     }

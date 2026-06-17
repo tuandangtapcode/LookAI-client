@@ -6,7 +6,7 @@ export interface ICreateItemType {
   category: ItemCategoryEnum
 }
 
-export interface IUpdateItemType extends ICreateItemType {
+export type IUpdateItemType = Partial<ICreateItemType> & {
   itemTypeId: string
 }
 

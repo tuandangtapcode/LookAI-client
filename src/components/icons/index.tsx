@@ -6,18 +6,21 @@ import {
   AiFillSetting,
   AiOutlineAppstore,
   AiOutlineArrowLeft,
+  AiOutlineBug,
   AiOutlineCheck,
   AiOutlineClose,
   AiOutlineCloseCircle,
   AiOutlineCloudUpload,
+  AiOutlineComment,
   AiOutlineEye,
+  AiOutlineFilter,
   AiOutlineMail,
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
   AiOutlinePlus,
   AiOutlineUser
 } from 'react-icons/ai'
-import { BiArchive, BiBarChart, BiLogIn, BiMenu } from 'react-icons/bi'
+import { BiArchive, BiBarChart, BiEdit, BiLogIn, BiMenu, BiTrash } from 'react-icons/bi'
 import { BsFillTrash3Fill, BsTelephone } from 'react-icons/bs'
 import { CgRing } from 'react-icons/cg'
 import { FaLocationDot } from 'react-icons/fa6'
@@ -37,9 +40,11 @@ const icons = {
   ICON_PLUS: <AiOutlinePlus />,
   ICON_VIEW: <AiOutlineEye className='text-(--color-blue)! text-[16px]!' />,
   ICON_EDIT: <AiFillEdit className='text-[#7cb305]! text-[16px]!' />,
+  ICON_EDIT_USER: <BiEdit className='text-[16px]!' />,
   ICON_PHONE: <BsTelephone />,
   ICON_MAIL: <AiOutlineMail />,
   ICON_DELETE: <BsFillTrash3Fill className='text-(--color-red)! text-[16px]!' />,
+  ICON_DELETE_USER: <BiTrash className='text-[16px]!' />,
   ICON_CONFIRM: <AiOutlineCheck className='text-(--color-green)! text-[16px]!' />,
   ICON_CLOSE: <AiOutlineClose className='text-(--color-red)! text-[16px]!' />,
   ICON_LOCATION: <FaLocationDot />,
@@ -65,7 +70,10 @@ const icons = {
   ICON_PACKAGE: <AiOutlineAppstore className='text-[20px]!' />,
   ICON_MENU: <BiMenu className='text-[25px]!' />,
   ICON_BACK: <AiOutlineArrowLeft className='text-[20px]!' />,
-  ICON_FINACE: <MdAttachMoney className='text-[20px]!' />
+  ICON_FINACE: <MdAttachMoney className='text-[20px]!' />,
+  ICON_FILTER: <AiOutlineFilter />,
+  ICON_FEEDBACK: <AiOutlineComment className='text-[20px]!' />,
+  ICON_LOG: <AiOutlineBug className='text-[20px]!' />
 }
 
 export default icons

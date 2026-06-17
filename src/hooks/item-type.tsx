@@ -1,6 +1,7 @@
 import Button from '@/components/button'
 import icons from '@/components/icons'
 import { IItemType } from '@/interfaces/item-type'
+import { IGetQuantityWardrobe } from '@/interfaces/wardrobe'
 import { globalSelector } from '@/redux/store'
 import ItemTypeService from '@/services/item-type'
 import { baseRouteItemType } from '@/services/item-type/urls'
@@ -13,6 +14,7 @@ import useSWR from 'swr'
 
 export const useItemTypes = () => {
   const { data, isLoading, mutate } = useSWR(baseRouteItemType, () => ItemTypeService.getListItemType())
+
   return {
     itemTypes: data?.data || [],
     loading: isLoading,
@@ -63,41 +65,46 @@ export const useGenerateItemTypeColumn = (onEdit: (record: IItemType) => void) =
   return columns
 }
 
-export const useGenerateItemCategoryMenu = () => {
+export const useGenerateItemCategoryMenu = (quantities: IGetQuantityWardrobe[]) => {
   const menu: MenuProps['items'] = [
     {
+      key: `all`,
+      label: `Tất cả (${quantities?.reduce((acc, i) => acc + Number(i?.quantity || 0), 0)})`,
+      icon: icons.ICON_DASBOARD
+    },
+    {
       key: `${ItemCategoryEnum.TOP}`,
-      label: 'Áo',
+      label: `Áo (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.TOP)?.quantity || 0})`,
       icon: icons.ICON_TOP
     },
     {
       key: `${ItemCategoryEnum.BOTTOM}`,
-      label: 'Quần',
+      label: `Quần (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.BOTTOM)?.quantity || 0})`,
       icon: icons.ICON_BOTTOM
     },
     {
       key: `${ItemCategoryEnum.JEWELRY}`,
-      label: 'Trang sức',
+      label: `Trang sức (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.JEWELRY)?.quantity || 0})`,
       icon: icons.ICON_JEWELRY
     },
     {
       key: `${ItemCategoryEnum.FOOTWEAR}`,
-      label: 'Giầy dép',
+      label: `Giầy dép (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.FOOTWEAR)?.quantity || 0})`,
       icon: icons.ICON_FOOTWEAR
     },
     {
       key: `${ItemCategoryEnum.ACCESSORY}`,
-      label: 'Phụ kiện',
+      label: `Phụ kiện (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.ACCESSORY)?.quantity || 0})`,
       icon: icons.ICON_ACCESSORY
     },
     {
       key: `${ItemCategoryEnum.DRESS}`,
-      label: 'Váy',
+      label: `Váy (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.DRESS)?.quantity || 0})`,
       icon: icons.ICON_DRESS
     },
     {
       key: `${ItemCategoryEnum.SKIRT}`,
-      label: 'Váy ngắn',
+      label: `Váy ngắn (${quantities?.find((i) => i?.itemCategory === ItemCategoryEnum.SKIRT)?.quantity || 0})`,
       icon: icons.ICON_SKIRT
     },
     {
