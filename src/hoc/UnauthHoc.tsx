@@ -1,13 +1,14 @@
 'use client'
 import Spin from '@/components/spin'
 import globalSlice from '@/redux/globalSlice'
+import { globalSelector } from '@/redux/store'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { logError } from '@/utils/helper/log'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface UnauthHocProps {
   allowRoles: UserRoleEnum[]
@@ -19,6 +20,8 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
   const [authorized, setAuthorized] = useState(false)
   const dispatch = useDispatch()
   const router = useRouter()
+  const { user } = useSelector(globalSelector)
+  const pathName = usePathname()
 
   const checkAuth = async () => {
     try {
@@ -30,10 +33,20 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
         return
       }
 
-      if (!res?.data?.id || !res?.data?.role) return router.replace(routes.forbidden.source)
+      if (!res?.data?.id || !res?.data?.role) {
+        router.replace(routes.forbidden.source)
+        return
+      }
 
       if ([UserRoleEnum.ADMIN].includes(res?.data?.role)) {
-        return router.replace(routes.dashboard.source)
+        router.replace(routes.dashboard.source)
+        return
+      }
+
+      if ([routes.login.source, routes.register.source].includes(pathName)) {
+        router.replace(routes.home.source)
+        setAuthorized(true)
+        return
       }
 
       dispatch(globalSlice.actions.setIsCheckAuth(true))

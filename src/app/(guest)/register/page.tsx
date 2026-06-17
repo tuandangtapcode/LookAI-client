@@ -1,7 +1,6 @@
 'use client'
 import Button from '@/components/button'
 import icons from '@/components/icons'
-import Spin from '@/components/spin'
 import globalSlice from '@/redux/globalSlice'
 import { globalSelector } from '@/redux/store'
 import AuthService from '@/services/auth'
@@ -46,6 +45,7 @@ const Register = () => {
         if (res?.error) return notify('error', res?.msg)
 
         dispatch(globalSlice.actions.setIsCheckAuth(true))
+        router.replace(routes.home.source)
       } catch (error) {
         logError('Register.tsx-handleLoginGoogle', error)
       } finally {
@@ -65,89 +65,87 @@ const Register = () => {
   }
 
   return (
-    <Spin loading={loading}>
-      <Form layout='vertical' form={form}>
-        <Row className='justify-between items-center'>
-          <Col xxl={11} xl={11} lg={11} md={11} className='h-full'>
-            <Image width='100%' preview={false} src='/logo.png' alt='' className='rounded-[12px]' />
-          </Col>
-          <Col xxl={11} xl={11} lg={11} md={11}>
-            <Row>
-              <Col span={24} className='mb-6'>
-                <div className='mb-3 font-semibold text-gray-800 text-[25px] text-center'>Chào mừng đến với LookAI</div>
-                <div className='bg-(--color-background)! hidden md:flex justify-around py-2.5 rounded-[40px] mb-3'>
-                  <Link
-                    className={`block w-[40%] text-center text-white! py-2 rounded-3xl ${
-                      pathName === routes.login.source ? 'bg-(--color-primary)!' : ''
-                    }`}
-                    href={routes.login.source}
-                  >
-                    Đăng nhập
-                  </Link>
-                  <Link
-                    className={`block w-[40%] text-center text-white! py-2 rounded-3xl ${
-                      pathName === routes.register.source ? 'bg-(--color-primary)!' : ''
-                    }`}
-                    href={routes.register.source}
-                  >
-                    Đăng ký
-                  </Link>
-                </div>
-                <div className='text-sm text-gray-500 text-center'>
-                  Hãy điền đầy đủ các thông tin cần thiết sau đó ấn &quot;Đăng ký với Google&quot;
-                </div>
-              </Col>
-              <Col span={24}>
-                <Form.Item
-                  name='phone'
-                  label='Số điện thoại:'
-                  rules={[{ pattern: getRegexPhoneNumber(), message: 'Số điện thoại không đúng định dạng' }]}
+    <Form layout='vertical' form={form}>
+      <Row className='justify-between items-center'>
+        <Col xxl={11} xl={11} lg={11} md={11} className='h-full'>
+          <Image width='100%' preview={false} src='/logo.png' alt='' className='rounded-[12px]' />
+        </Col>
+        <Col xxl={11} xl={11} lg={11} md={11}>
+          <Row>
+            <Col span={24} className='mb-6'>
+              <div className='mb-3 font-semibold text-gray-800 text-[25px] text-center'>Chào mừng đến với LookAI</div>
+              <div className='bg-(--color-background)! hidden md:flex justify-around py-2.5 rounded-[40px] mb-3'>
+                <Link
+                  className={`block w-[40%] text-center text-white! py-2 rounded-3xl ${
+                    pathName === routes.login.source ? 'bg-(--color-primary)!' : ''
+                  }`}
+                  href={routes.login.source}
                 >
-                  <Input placeholder='Số điện thoại' />
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Form.Item
-                  name='dateOfBirth'
-                  label='Ngày sinh:'
-                  rules={[{ required: true, message: 'Thông tin không được để trống' }]}
+                  Đăng nhập
+                </Link>
+                <Link
+                  className={`block w-[40%] text-center text-white! py-2 rounded-3xl ${
+                    pathName === routes.register.source ? 'bg-(--color-primary)!' : ''
+                  }`}
+                  href={routes.register.source}
                 >
-                  <DatePicker format='DD/MM/YYYY' placeholder='Ngày sinh' />
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Form.Item
-                  name='gender'
-                  label='Giới tính:'
-                  rules={[{ required: true, message: 'Thông tin không được để trống' }]}
-                >
-                  <Select
-                    placeholder='Giới tính'
-                    options={GENDER.map((i) => ({
-                      value: i.keyValue,
-                      label: i.keyName
-                    }))}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={24} className='mb-4 mt-4'>
-                <Button icon={icons.ICON_GOOGLE} type='submitLogin' onClick={handleSubmit}>
-                  Đăng ký với Google
-                </Button>
-              </Col>
-              <Col span={24}>
-                <div className='flex gap-x-2 items-center'>
-                  <div className='text-sm font-normal text-gray-700'>Bạn đã có tài khoản?</div>
-                  <Link href={routes.login.source} className='primary-text font-medium'>
-                    Đăng nhập
-                  </Link>
-                </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Form>
-    </Spin>
+                  Đăng ký
+                </Link>
+              </div>
+              <div className='text-sm text-gray-500 text-center'>
+                Hãy điền đầy đủ các thông tin cần thiết sau đó ấn &quot;Đăng ký với Google&quot;
+              </div>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                name='phone'
+                label='Số điện thoại:'
+                rules={[{ pattern: getRegexPhoneNumber(), message: 'Số điện thoại không đúng định dạng' }]}
+              >
+                <Input placeholder='Số điện thoại' />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                name='dateOfBirth'
+                label='Ngày sinh:'
+                rules={[{ required: true, message: 'Thông tin không được để trống' }]}
+              >
+                <DatePicker format='DD/MM/YYYY' placeholder='Ngày sinh' />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                name='gender'
+                label='Giới tính:'
+                rules={[{ required: true, message: 'Thông tin không được để trống' }]}
+              >
+                <Select
+                  placeholder='Giới tính'
+                  options={GENDER.map((i) => ({
+                    value: i.keyValue,
+                    label: i.keyName
+                  }))}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={24} className='mb-4 mt-4'>
+              <Button icon={icons.ICON_GOOGLE} type='submitLogin' onClick={handleSubmit} loading={loading}>
+                Đăng ký với Google
+              </Button>
+            </Col>
+            <Col span={24}>
+              <div className='flex gap-x-2 items-center'>
+                <div className='text-sm font-normal text-gray-700'>Bạn đã có tài khoản?</div>
+                <Link href={routes.login.source} className='primary-text font-medium'>
+                  Đăng nhập
+                </Link>
+              </div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Form>
   )
 }
 
