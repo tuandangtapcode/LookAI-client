@@ -45,4 +45,4 @@ jobs:
             docker rm stylist-ai-client || true
             docker image prune -af || true
 
-            docker run -d --name stylist-ai-client -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/stylist-ai-client:${{ github.sha }}
+            docker run -d --name stylist-ai-client -p 3001:3001 ${{ secrets.DOCKER_USERNAME }}/stylist-ai-client:${{ github.sha }}
