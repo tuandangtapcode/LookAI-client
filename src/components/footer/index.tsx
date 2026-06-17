@@ -22,15 +22,15 @@ const Footer = () => {
             <div className='flex gap-3.75 text-[24px] mt-2.5'>
               <FacebookOutlined
                 style={{ fontSize: '23px' }}
-                onClick={() => window.open('https://www.facebook.com/feliewedding', '_blank')}
+                onClick={() => {}}
               />
               <InstagramOutlined
                 style={{ fontSize: '24px' }}
-                onClick={() => window.open('https://www.instagram.com/felie.wedding', '_blank')}
+                onClick={() => {}}
               />
               <FaTiktok
                 style={{ fontSize: '22px' }}
-                onClick={() => window.open('https://www.tiktok.com/@flie.wedding', '_blank')}
+                onClick={() => {}}
               />
             </div>
           </div>
@@ -40,11 +40,11 @@ const Footer = () => {
             <div className='text-[16px] font-bold mb-3'>THÔNG TIN LIÊN HỆ</div>
             <div className='mb-1.5 flex items-center'>
               <div className='font-semibold mr-1.5 text-[16px]'>{icons.ICON_PHONE}</div>
-              <div className='text-[16px]'>0911403004</div>
+              <div className='text-[16px]'>0328587528</div>
             </div>
             <div className='mb-1.5 flex items-center'>
               <div className='font-semibold mr-1.5 text-[16px]'>{icons.ICON_MAIL}</div>
-              <div className='text-[16px]'>feliewedding@gmail.com</div>
+              <div className='text-[16px]'>stylist-ai@gmail.com</div>
             </div>
             <div className='flex items-center'>
               <div className='font-semibold mr-1.5 text-[16px]'>{icons.ICON_LOCATION}</div>
@@ -55,12 +55,9 @@ const Footer = () => {
         <Col span={8} className='justify-items-center'>
           <div>
             <div className='text-[16px] font-bold mb-3'>DỊCH VỤ CỦA CHÚNG TÔI</div>
-            <div className='mb-1.5'>Trang phục cưới</div>
-            <div className='mb-1.5'>Trung tâm tiệc cưới</div>
-            <div className='mb-1.5'>Trang trí tiệc cưới</div>
-            <div className='mb-1.5'>Chụp ảnh cưới</div>
-            <div className='mb-1.5'>Xe cưới</div>
-            <div>Tạo thiệp cưới online</div>
+            <div className='mb-1.5'>Tư vấn trang phục</div>
+            <div className='mb-1.5'>Cá nhân hoá theo phong cách</div>
+            <div className='mb-1.5'>Sử dụng tủ đồ của bạn để tư vấn</div>
           </div>
         </Col>
       </Row>

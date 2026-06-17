@@ -7,7 +7,7 @@ import { globalSelector } from '@/redux/store'
 import { noFooterRoutes, routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { handleLogout } from '@/utils/helper/common'
-import { Dropdown, Image, Menu, MenuProps } from 'antd'
+import { Dropdown, Menu, MenuProps } from 'antd'
 import { usePathname, useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -99,12 +99,7 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                   <div className='pt-3 px-5 mb-5'>
                     <div className='flex items-center mb-3 gap-x-2'>
                       <div className='w-15 h-15 shrink-0'>
-                        <Image
-                          preview={false}
-                          src={user?.avatar}
-                          alt=''
-                          className='rounded-[50%] w-full h-full object-cover'
-                        />
+                        <img src={user?.avatar} alt='' className='rounded-full w-full h-full object-cover' />
                       </div>
                       <div className='flex-1 min-w-0'>
                         <div>{user?.userName}</div>

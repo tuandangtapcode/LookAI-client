@@ -4,7 +4,7 @@ import { globalSelector } from '@/redux/store'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { handleLogout } from '@/utils/helper/common'
-import { Dropdown, Image, MenuProps } from 'antd'
+import { Dropdown, MenuProps } from 'antd'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +18,14 @@ const Header = () => {
   const isPc = useCheckDeviceScreen('pc')
 
   const menuAccountUser: MenuProps['items'] = [
+    ...(!isPc
+      ? [
+          {
+            key: routes.packagesList.source,
+            label: 'Gói dịch vụ'
+          }
+        ]
+      : []),
     {
       key: routes.profile.source,
       label: 'Thông tin tài khoản'
@@ -49,17 +57,16 @@ const Header = () => {
         [routes.login.source, routes.register.source].includes(pathName) ? 'mb-10' : ''
       }`}
     >
-      <div className='flex justify-between items-center w-[85%] m-auto'>
-        <Image
+      <div className='flex justify-between items-center sm:w-[85%] w-[90%] m-auto'>
+        <img
           src='/logo-header.png'
           alt=''
-          preview={false}
           className='h-15! object-contain! cursor-pointer'
           onClick={() => router.push(routes.home.source)}
         />
         <div className='flex justify-between items-center gap-x-5'>
           {(!user || user?.role !== UserRoleEnum.ADMIN) && (
-            <div className='flex justify-between items-center gap-x-5 text-white'>
+            <div className='justify-between items-center gap-x-5 text-white hidden sm:flex'>
               {menuHeader.map((item) => (
                 <Link
                   key={item.href}
@@ -91,7 +98,7 @@ const Header = () => {
                 trigger={['click']}
               >
                 <div className='flex items-center gap-x-2 text-white'>
-                  <Image className='block w-10! h-10! rounded-[50%]' src={user?.avatar} preview={false} alt='' />
+                  <img className='h-10! w-10! object-cover! rounded-full!' src={user?.avatar} alt='' />
                   <div className='text-[15px]'>{user?.userName}</div>
                 </div>
               </Dropdown>
