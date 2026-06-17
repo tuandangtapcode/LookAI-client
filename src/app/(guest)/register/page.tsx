@@ -13,7 +13,7 @@ import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
 import { Col, DatePicker, Form, Image, Input, Row, Select } from 'antd'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -21,7 +21,6 @@ const Register = () => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
-  const router = useRouter()
   const pathName = usePathname()
   const { listSystemKey } = useSelector(globalSelector)
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
@@ -45,7 +44,6 @@ const Register = () => {
         if (res?.error) return notify('error', res?.msg)
 
         dispatch(globalSlice.actions.setIsCheckAuth(true))
-        router.replace(routes.home.source)
       } catch (error) {
         logError('Register.tsx-handleLoginGoogle', error)
       } finally {

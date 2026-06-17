@@ -4,6 +4,7 @@ import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
+import { handleLogout } from '@/utils/helper/common'
 import { logError } from '@/utils/helper/log'
 import { usePathname, useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
@@ -34,8 +35,17 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
         return router.replace(redirectUrl)
       }
 
-      if (!res?.data?.id || !res?.data?.role) return router.replace(routes.forbidden.source)
-      if (!allowRoles.includes(res?.data?.role)) return router.replace(routes.forbidden.source)
+      // Nếu có token nhưng token không hợp lệ thì logout
+      if (!res?.data?.id || !res?.data?.role) {
+        handleLogout(dispatch, router)
+        return
+      }
+
+      // Nếu role của user không nằm trong danh sách cho phép thì redirect về forbidden
+      if (!allowRoles.includes(res?.data?.role)) {
+        router.replace(routes.forbidden.source)
+        return
+      }
 
       setAuthorized(true)
       dispatch(globalSlice.actions.setIsCheckAuth(true))

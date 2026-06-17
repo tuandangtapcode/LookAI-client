@@ -9,12 +9,11 @@ import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
 import { Col, Form, Image, Row } from 'antd'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 const Login = () => {
-  const router = useRouter()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const pathName = usePathname()
@@ -31,7 +30,6 @@ const Login = () => {
         if (res?.error) return notify('error', res?.msg)
 
         dispatch(globalSlice.actions.setIsCheckAuth(true))
-        router.replace(routes.home.source)
       } catch (error) {
         logError('Login.tsx-handleLoginGoogle', error)
       } finally {
