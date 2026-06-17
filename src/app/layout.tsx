@@ -4,6 +4,7 @@ import env from '@/utils/config/env'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { Suspense } from 'react'
 import { Provider } from 'react-redux'
 import App from './App'
 import './globals.css'
@@ -25,7 +26,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <Provider store={store}>
           <GoogleOAuthProvider clientId={env.GOOGLE_OAUTH_CLIENT_ID}>
             <AntdRegistry>
-              <App>{children}</App>
+              <Suspense fallback={null}>
+                <App>{children}</App>
+              </Suspense>
             </AntdRegistry>
           </GoogleOAuthProvider>
         </Provider>
