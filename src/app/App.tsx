@@ -5,11 +5,10 @@ import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { logError } from '@/utils/helper/log'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const App = ({ children }: { children: React.ReactNode }) => {
-  const [loading, setLoading] = useState(false)
   const { isCheckAuth } = useSelector(globalSelector)
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
@@ -19,20 +18,14 @@ const App = ({ children }: { children: React.ReactNode }) => {
 
   const getListSystemkey = async () => {
     try {
-      setLoading(true)
-
       await dispatch(getListSystemkeyThunk())
     } catch (error) {
       logError('App.tsx-getListSystemkey', error)
-    } finally {
-      setLoading(false)
     }
   }
 
   const getDetailProfile = async () => {
     try {
-      setLoading(true)
-
       const user = await dispatch(getDetailProfileThunk(router)).unwrap()
 
       if (redir) return router.replace(redir)
@@ -42,8 +35,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
       }
     } catch (error) {
       logError('App.tsx-getDetailProfile', error)
-    } finally {
-      setLoading(false)
     }
   }
 
