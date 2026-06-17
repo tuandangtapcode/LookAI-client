@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use(
   (config) => {
     config.baseURL = env.ROOT_SERVER_URL
     config.withCredentials = true
-    config.headers['X-Platform'] = env.X_PLATFORM
     return config
   },
   (error) => Promise.reject(error.message)
