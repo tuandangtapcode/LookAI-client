@@ -1,5 +1,6 @@
 'use client'
 import HeaderSection from '@/components/header/components/HeaderSection'
+import Spin from '@/components/spin'
 import Table from '@/components/table'
 import { useGenerateExpenseColumn } from '@/hooks/expense'
 import { IExpense, IGetListExpense } from '@/interfaces/expense'
@@ -46,7 +47,7 @@ const Expenses = () => {
   }, [query])
 
   return (
-    <div>
+    <Spin loading={loading}>
       <HeaderSection title='Quản lý chi phí' onAddButton={() => setUpsertUpdateExpense(true)} />
       <Row className='mb-4' gutter={[8, 8]}>
         <Col span={12}>
@@ -92,7 +93,7 @@ const Expenses = () => {
           onOk={getListExpense}
         />
       )}
-    </div>
+    </Spin>
   )
 }
 

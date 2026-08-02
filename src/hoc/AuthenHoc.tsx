@@ -1,26 +1,23 @@
 'use client'
 import Spin from '@/components/spin'
-import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { handleLogout } from '@/utils/helper/common'
 import { logError } from '@/utils/helper/log'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-interface AuthHocProps {
-  allowRoles: UserRoleEnum[]
+interface AuthenHocProps {
   children: ReactNode
 }
 
-const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
+const AuthenHoc = ({ children }: AuthenHocProps) => {
   const [loading, setLoading] = useState(false)
   const [authorized, setAuthorized] = useState(false)
-  const router = useRouter()
   const dispatch = useDispatch()
-  const pathName = usePathname()
+  const router = useRouter()
 
   const checkAuth = async () => {
     try {
@@ -28,11 +25,8 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
 
       const res = await AuthService.checkAuth()
       if (!res?.data) {
-        const redirectUrl = pathName
-          ? `${routes.login.source}?redir=${encodeURIComponent(pathName)}`
-          : routes.login.source
-
-        return router.replace(redirectUrl)
+        setAuthorized(true)
+        return
       }
 
       if (!res?.data?.id || !res?.data?.role || !res?.data?.name) {
@@ -40,15 +34,13 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
         return
       }
 
-      if (!allowRoles.includes(res?.data?.role)) {
-        router.replace(routes.forbidden.source)
-        return
+      if (res?.data?.role === UserRoleEnum.ADMIN) {
+        router.replace(routes.dashboard.source)
+      } else {
+        router.replace(routes.home.source)
       }
-
-      setAuthorized(true)
-      dispatch(globalSlice.actions.setIsCheckAuth(true))
     } catch (error) {
-      logError('AuthHoc.tsx-checkAuth', error)
+      logError('AuthenHoc.tsx-checkAuth', error)
     } finally {
       setLoading(false)
     }
@@ -65,4 +57,4 @@ const AuthHoc = ({ allowRoles, children }: AuthHocProps) => {
   )
 }
 
-export default AuthHoc
+export default AuthenHoc

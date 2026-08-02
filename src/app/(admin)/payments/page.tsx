@@ -1,5 +1,6 @@
 'use client'
 import HeaderSection from '@/components/header/components/HeaderSection'
+import Spin from '@/components/spin'
 import Table from '@/components/table'
 import { useGeneratePaymentColumn } from '@/hooks/payment'
 import { IGetListPayment, IPayment } from '@/interfaces/payment'
@@ -43,7 +44,7 @@ const Payments = () => {
   }, [query])
 
   return (
-    <div>
+    <Spin loading={loading}>
       <HeaderSection title='Quản lý giao dịch' />
       <Row className='mb-4' gutter={[8, 8]}>
         <Col span={8}>
@@ -74,7 +75,7 @@ const Payments = () => {
       <div>
         <Table columns={useGeneratePaymentColumn(query)} data={payments} loading={loading} total={total} />
       </div>
-    </div>
+    </Spin>
   )
 }
 

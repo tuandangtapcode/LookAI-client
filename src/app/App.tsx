@@ -33,10 +33,10 @@ const App = ({ children }: { children: React.ReactNode }) => {
         return
       }
 
-      if (user?.role === UserRoleEnum.ADMIN) {
-        router.replace(routes.dashboard.source)
-      } else {
-        if ([routes.login.source, routes.register.source].includes(pathName)) {
+      if ([routes.login.source, routes.register.source].includes(pathName)) {
+        if (user?.role === UserRoleEnum.ADMIN) {
+          router.replace(routes.dashboard.source)
+        } else {
           router.replace(routes.home.source)
         }
       }

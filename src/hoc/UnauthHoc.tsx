@@ -2,6 +2,7 @@
 import Spin from '@/components/spin'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
+import { routes } from '@/utils/constant/route'
 import { UserRoleEnum } from '@/utils/enum/user'
 import { handleLogout } from '@/utils/helper/common'
 import { logError } from '@/utils/helper/log'
@@ -10,11 +11,10 @@ import { ReactNode, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 interface UnauthHocProps {
-  allowRoles: UserRoleEnum[]
   children: ReactNode
 }
 
-const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
+const UnauthHoc = ({ children }: UnauthHocProps) => {
   const [loading, setLoading] = useState(false)
   const [authorized, setAuthorized] = useState(false)
   const dispatch = useDispatch()
@@ -30,9 +30,13 @@ const UnauthHoc = ({ allowRoles, children }: UnauthHocProps) => {
         return
       }
 
-      // Nếu có token nhưng token không hợp lệ thì
-      if (!res?.data?.id || !res?.data?.role) {
+      if (!res?.data?.id || !res?.data?.role || !res?.data?.name) {
         handleLogout(dispatch, router)
+        return
+      }
+
+      if (res?.data?.role === UserRoleEnum.ADMIN) {
+        router.replace(routes.dashboard.source)
         return
       }
 
