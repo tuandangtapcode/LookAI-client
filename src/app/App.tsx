@@ -20,6 +20,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
     try {
       await dispatch(getListSystemkeyThunk())
     } catch (error) {
+      console.log('error: ', error);
       logError('App.tsx-getListSystemkey', error)
     }
   }
