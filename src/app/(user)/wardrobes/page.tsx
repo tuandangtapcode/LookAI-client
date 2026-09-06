@@ -104,7 +104,7 @@ const Wardrobes = () => {
         <Col xxl={20} xl={20} lg={19} md={19} sm={24} xs={24}>
           {isPc && <Filter query={query} debouncedChangeQuery={debouncedChangeQuery} itemTypes={itemTypes} />}
           <Spin loading={loading}>
-            <div className='rounded-2xl bg-white min-h-[calc(100dvh-276px)] md:min-h-[calc(100dvh-212px)] p-4'>
+            <div className='border border-(--color-line) bg-white min-h-[calc(100dvh-276px)] md:min-h-[calc(100dvh-212px)] p-4'>
               {wardrobes?.length ? (
                 <Row gutter={[12, 12]}>
                   {wardrobes?.map((item) => (

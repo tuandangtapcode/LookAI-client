@@ -12,7 +12,8 @@ const ItemTypes = () => {
 
   return (
     <div>
-      <HeaderSection title='Quản lý loại trang phục' onAddButton={() => setUpserttUpdateItemType(true)} />
+      <span className='tracking-label text-(--color-gold)'>Quản lý</span>
+      <HeaderSection title='Loại trang phục' onAddButton={() => setUpserttUpdateItemType(true)} />
       <div>
         <Table columns={useGenerateItemTypeColumn(setUpserttUpdateItemType)} data={itemTypes} loading={loading} />
       </div>

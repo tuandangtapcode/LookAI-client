@@ -45,7 +45,7 @@ const OutfitAdvice = ({ userId }: OutfitAdviceProps) => {
 
   return (
     <Spin loading={loading}>
-      <div className='shadow-sm'>
+      <div>
         <Table
           columns={useGenerateOutfitAdviceColumn(query)}
           data={outfitAdvices}

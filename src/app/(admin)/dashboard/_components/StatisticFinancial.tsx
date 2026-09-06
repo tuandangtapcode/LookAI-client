@@ -6,7 +6,7 @@ import { logError } from '@/utils/helper/log'
 import { useEffect, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
-const COLORS = ['#60a5fa', '#38bdf8', '#06b6d4', '#0ea5a4', '#7dd3fc']
+const COLORS = ['#b8935a', '#1a1714', '#8a6f42', '#d9c397', '#4a3f2a']
 
 const StatisticFinancial = () => {
   const [loading, setLoading] = useState(false)
@@ -33,18 +33,18 @@ const StatisticFinancial = () => {
   const pieData = data ? data?.expense?.analysis?.map((a) => ({ name: a.type, value: a.totalAmount })) : []
   const barData = data
     ? [
-        { name: 'Expense', value: data?.expense?.total, color: '#ff0000' },
-        { name: 'Payment', value: data?.payment, color: '#1db954' }
+        { name: 'Expense', value: data?.expense?.total, color: '#b3392c' },
+        { name: 'Payment', value: data?.payment, color: '#2f7d52' }
       ]
     : []
 
   return (
     <Spin loading={loading}>
       <div className='grid grid-cols-2 gap-x-4'>
-        <div className='w-full p-4 border border-(--color-matte) rounded'>
-          <div className='text-sm text-gray-500 mb-2'>So sánh Chi và Thu</div>
+        <div className='w-full p-4 bg-white border border-(--color-line)'>
+          <div className='tracking-label text-(--color-ink)/50 mb-2'>So sánh Chi và Thu</div>
           {!barData?.length ? (
-            <div className='text-sm text-gray-400'>Không có dữ liệu</div>
+            <div className='text-sm text-(--color-text-default)/40'>Không có dữ liệu</div>
           ) : (
             <div style={{ width: '100%', height: 170 }}>
               <ResponsiveContainer>
@@ -60,10 +60,10 @@ const StatisticFinancial = () => {
             </div>
           )}
         </div>
-        <div className='w-full p-4 border border-(--color-matte) rounded'>
-          <div className='text-sm text-gray-500 mb-2'>Phân tích chi theo loại</div>
+        <div className='w-full p-4 bg-white border border-(--color-line)'>
+          <div className='tracking-label text-(--color-ink)/50 mb-2'>Phân tích chi theo loại</div>
           {!pieData.length ? (
-            <div className='text-sm text-gray-400'>Không có dữ liệu</div>
+            <div className='text-sm text-(--color-text-default)/40'>Không có dữ liệu</div>
           ) : (
             <div style={{ width: '100%', height: 170 }}>
               <ResponsiveContainer>

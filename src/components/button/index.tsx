@@ -37,21 +37,23 @@ const Button = ({
   size = 'middle'
 }: ButtonProps) => {
   const types: Record<ButtonType, string> = {
-    save: 'bg-(--color-primary)! hover:!bg-(--color-primary-hover)! text-white',
-    cancel: 'bg-white! hover:bg-white! text-black! border border-(--color-primary)!',
+    save: 'bg-(--color-ink)! hover:!bg-(--color-gold)! text-white! border-none! font-medium! tracking-wide!',
+    cancel: 'bg-white! hover:bg-(--color-ivory-deep)! text-(--color-ink)! border border-(--color-line)!',
     submitLogin:
-      'w-full bg-white! hover:bg-[#e4e7ec]! text-black! border border-(--color-primary)! rounded-[10px]! h-10!',
-    login: 'bg-white! hover:bg-white! text-black! rounded-[30px]! py-4.5! w-full! text-[15px]!',
+      'w-full bg-white! hover:bg-(--color-ivory-deep)! text-(--color-ink)! border border-(--color-ink)! rounded-[4px]! h-10!',
+    login:
+      'bg-(--color-ink)! hover:bg-(--color-gold)! text-white! border-none! rounded-none! py-4.5! w-full! text-[13px]! uppercase! tracking-[0.14em]!',
     register:
-      'bg-(--color-primary-hover)! hover:bg-(--color-primary-hover)! text-white rounded-[30px]! py-4.5! w-27.5! text-[16px]!',
+      'bg-(--color-gold)! hover:bg-(--color-ink)! text-white! rounded-none! py-4.5! px-6! text-[14px]! uppercase! tracking-[0.12em]! whitespace-nowrap!',
     saveFullWidth:
-      'bg-(--color-primary)! hover:bg-(--color-primary-hover)! text-white w-full! text-[17px]! font-semibold! py-4.5! rounded-[30px]!',
-    outline: 'bg-white! hover:bg-(--color-primary)! text-black!  hover:text-white! border border-(--color-primary)!',
-    circle: 'bg-white! hover:bg-white! text-black! shadow-lg!',
+      'bg-(--color-ink)! hover:bg-(--color-gold)! text-white! w-full! text-[15px]! font-medium! uppercase! tracking-[0.14em]! py-4.5! rounded-none!',
+    outline:
+      'bg-transparent! hover:bg-(--color-ink)! text-(--color-ink)!  hover:text-white! border border-(--color-ink)!',
+    circle: 'bg-white! hover:bg-white! text-(--color-ink)! shadow-lg!',
     outlineFullWidth:
-      'bg-white! hover:bg-(--color-primary)! text-black!  hover:text-white! border border-(--color-primary)! w-full! text-[16px]! py-4.5! rounded-[30px]!',
-    outlineCircle: 'bg-white! hover:bg-white! text-black! border border-(--color-primary)!',
-    primaryCircle: 'bg-(--color-primary)! hover:bg-(--color-primary)! text-white!'
+      'bg-transparent! hover:bg-(--color-ink)! text-(--color-ink)!  hover:text-white! border border-(--color-ink)! w-full! text-[14px]! uppercase! tracking-[0.12em]! py-4.5! rounded-none!',
+    outlineCircle: 'bg-white! hover:bg-white! text-(--color-ink)! border border-(--color-line)!',
+    primaryCircle: 'bg-(--color-ink)! hover:bg-(--color-gold)! text-white!'
   }
 
   return (

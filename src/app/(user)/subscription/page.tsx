@@ -8,7 +8,8 @@ const Subscription = () => {
 
   return (
     <Spin loading={loading}>
-      <Card title='Thông tin gói đăng ký'>
+      <span className='tracking-label mb-2 block text-(--color-gold)'>Gói đăng ký</span>
+      <Card title='Thông tin gói đăng ký' className='border-(--color-line)!'>
         <Descriptions bordered column={1} items={useGenerateUserSubscriptionDetail(subscription)} />
       </Card>
     </Spin>

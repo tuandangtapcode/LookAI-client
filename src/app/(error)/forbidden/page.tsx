@@ -11,7 +11,7 @@ const Forbidden = () => {
       title='403'
       subTitle='Xin lỗi, bạn không được phép truy cập trang này.'
       extra={
-        <Button type='primary' className=' fw-700' onClick={() => router.push('/')}>
+        <Button type='primary' onClick={() => router.push('/')}>
           Quay lại
         </Button>
       }

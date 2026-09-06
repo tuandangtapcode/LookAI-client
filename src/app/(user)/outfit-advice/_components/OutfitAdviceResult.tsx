@@ -19,11 +19,11 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
   const GENDER = getListComboKey(SYSTEM_KEY.GENDER, listSystemKey)
 
   return (
-    <div className='bg-white p-6 rounded-lg shadow-lg'>
+    <div className='bg-white p-6 border border-(--color-line)'>
       <div className='space-y-4'>
         <div className='flex justify-end'>
-          <div className='bg-blue-500 text-white py-3 px-4 rounded-lg max-w-md'>
-            <h3 className='text-lg font-semibold mb-2'>Thông tin của bạn:</h3>
+          <div className='bg-(--color-ink) text-white py-4 px-5 max-w-md'>
+            <h3 className='tracking-label mb-3 text-(--color-gold)'>Thông tin của bạn</h3>
             <p>
               <strong>Chiều cao:</strong> {payload.height} cm
             </p>
@@ -57,7 +57,8 @@ const OutfitAdviceResult = ({ answer, payload, onNewAdvice }: OutfitAdviceResult
           </div>
         </div>
         <div className='flex justify-start'>
-          <div className='bg-gray-200 text-gray-800 py-3 px-4 rounded-lg max-w-md'>
+          <div className='bg-(--color-ivory) text-(--color-text-default) py-4 px-5 max-w-md border border-(--color-line)'>
+            <span className='tracking-label mb-3 block text-(--color-gold)'>Gợi ý từ LookAI</span>
             <div dangerouslySetInnerHTML={{ __html: formatAIAnswer(answer) }} />
           </div>
         </div>

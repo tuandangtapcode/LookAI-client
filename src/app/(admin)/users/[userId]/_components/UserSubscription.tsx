@@ -37,7 +37,7 @@ const UserSubscription = ({ userId }: UserSubscriptionProps) => {
 
   return (
     <Spin loading={loading}>
-      <div className='shadow-sm'>
+      <div>
         <Descriptions bordered column={1} items={useGenerateUserSubscriptionDetail(userSubscription)} />
       </div>
     </Spin>

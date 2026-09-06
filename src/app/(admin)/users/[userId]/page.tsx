@@ -63,7 +63,10 @@ const UserDetail = () => {
 
   return (
     <div>
-      <HeaderDetail title={user?.userName || ''} onBack={() => router.back()} />
+      <span className='tracking-label text-(--color-gold)'>Quản lý người dùng</span>
+      <div className='mt-1 mb-4'>
+        <HeaderDetail title={user?.userName || ''} onBack={() => router.back()} />
+      </div>
       <Tabs activeKey={activeTab} items={items} onChange={setActiveTab} />
     </div>
   )

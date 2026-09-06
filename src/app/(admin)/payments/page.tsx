@@ -45,8 +45,9 @@ const Payments = () => {
 
   return (
     <Spin loading={loading}>
-      <HeaderSection title='Quản lý giao dịch' />
-      <Row className='mb-4' gutter={[8, 8]}>
+      <span className='tracking-label text-(--color-gold)'>Tài chính</span>
+      <HeaderSection title='Giao dịch' />
+      <Row className='mb-4 bg-white border border-(--color-line) p-4 mx-0!' gutter={[8, 8]}>
         <Col span={8}>
           <Input
             placeholder='Tên người dùng'

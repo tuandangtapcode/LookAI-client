@@ -11,7 +11,7 @@ const NotFound = () => {
       title='404'
       subTitle='Xin lỗi, trang bạn đã truy cập không tồn tại.'
       extra={
-        <Button type='primary' className='fw-700 greendBackground' onClick={() => router.push('/')}>
+        <Button type='primary' onClick={() => router.push('/')}>
           Quay lại
         </Button>
       }

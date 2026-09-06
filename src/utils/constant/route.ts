@@ -109,6 +109,11 @@ export const routes = {
     destination: '/forbidden',
     isAdmin: false
   },
+  developing: {
+    source: '/developing',
+    destination: '/developing',
+    isAdmin: false
+  },
   notFound: {
     source: '/not-found',
     destination: '/not-found',

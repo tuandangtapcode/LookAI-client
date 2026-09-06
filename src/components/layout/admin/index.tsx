@@ -70,17 +70,18 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   ]
 
   return (
-    <div>
+    <div className='bg-(--color-ivory) min-h-screen'>
       <Header />
       <div className='flex h-[calc(100dvh-100px)] mt-5'>
         <div
-          className={`flex flex-col justify-between border-r border-r-(--color-matte) ${collapsed || !isPc ? '' : 'w-[16%]!'}`}
+          className={`flex flex-col justify-between bg-white border-r border-r-(--color-line) ${collapsed || !isPc ? '' : 'w-[16%]!'}`}
         >
           <Menu
             defaultSelectedKeys={[pathName]}
             items={menu}
             inlineCollapsed={collapsed || !isPc}
             mode='inline'
+            className='border-none! bg-transparent! pt-2!'
             onClick={({ key }) => {
               if (key === 'logout') {
                 handleLogout(dispatch, router)
@@ -89,11 +90,14 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
               }
             }}
           />
-          <div className='ml-1 pl-6 cursor-pointer' onClick={() => setCollapsed(!collapsed)}>
+          <div
+            className='ml-1 pl-6 py-3 cursor-pointer text-(--color-ink)/60 hover:text-(--color-gold) transition-colors'
+            onClick={() => setCollapsed(!collapsed)}
+          >
             {collapsed ? icons.ICON_MENU_UNFOLD : icons.ICON_MENU_FOLD}
           </div>
         </div>
-        <div className='flex-1 px-5 overflow-x-auto min-w-0'>{children}</div>
+        <div className='flex-1 px-5 py-5 overflow-x-auto min-w-0'>{children}</div>
       </div>
     </div>
   )

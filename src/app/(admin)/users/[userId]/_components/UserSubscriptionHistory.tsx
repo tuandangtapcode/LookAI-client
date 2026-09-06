@@ -45,7 +45,7 @@ const UserSubscriptionHistory = ({ userId }: UserSubscriptionHistoryProps) => {
 
   return (
     <Spin loading={loading}>
-      <div className='shadow-sm'>
+      <div>
         <Table
           columns={useGenerateUserSubscriptionHistory(query)}
           data={subscriptionHistories}

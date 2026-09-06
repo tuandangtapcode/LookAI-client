@@ -48,8 +48,9 @@ const Expenses = () => {
 
   return (
     <Spin loading={loading}>
-      <HeaderSection title='Quản lý chi phí' onAddButton={() => setUpsertUpdateExpense(true)} />
-      <Row className='mb-4' gutter={[8, 8]}>
+      <span className='tracking-label text-(--color-gold)'>Tài chính</span>
+      <HeaderSection title='Chi phí' onAddButton={() => setUpsertUpdateExpense(true)} />
+      <Row className='mb-4 bg-white border border-(--color-line) p-4 mx-0!' gutter={[8, 8]}>
         <Col span={12}>
           <Select
             placeholder='Loại chi phí'

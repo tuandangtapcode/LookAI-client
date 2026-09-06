@@ -18,14 +18,14 @@ const ItemCategoryMenu = ({ quantities, itemCategory, setQuery }: ItemCategoryMe
   const ITEM_CATEGORY = getListComboKey(SYSTEM_KEY.ITEM_CATEGORY, listSystemKey)
 
   return (
-    <div className='flex items-center gap-x-3 overflow-x-auto py-2'>
-      <div className='px-4 py-2 rounded-2xl whitespace-nowrap bg-gray-100 text-gray-700 cursor-default'>
+    <div className='flex items-center gap-x-2.5 overflow-x-auto py-2'>
+      <div className='px-4 py-1.5 whitespace-nowrap border border-(--color-line) text-(--color-text-default)/70 cursor-default text-[13px]'>
         Tất cả ({quantities?.reduce((total, q) => total + Number(q.quantity || 0), 0) || 0})
       </div>
       {ITEM_CATEGORY.map((i) => (
         <div
           key={i.keyValue}
-          className={`px-4 py-2 rounded-2xl whitespace-nowrap ${itemCategory === i.keyValue ? 'bg-(--color-primary-hover) text-white' : 'bg-gray-100 text-gray-700 cursor-pointer'}`}
+          className={`px-4 py-1.5 whitespace-nowrap text-[13px] transition-colors ${itemCategory === i.keyValue ? 'bg-(--color-ink) text-white border border-(--color-ink)' : 'border border-(--color-line) text-(--color-text-default)/70 cursor-pointer hover:border-(--color-gold)'}`}
           onClick={() => setQuery((pre) => ({ ...pre, itemCategory: Number(i.keyValue), currentPage: 1 }))}
         >
           {i.keyName} ({quantities?.find((q) => q?.itemCategory === i.keyValue)?.quantity || 0})

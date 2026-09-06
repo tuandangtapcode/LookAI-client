@@ -13,20 +13,20 @@ interface SelectedWardrobeProps {
 
 const SelectedWardrobe = ({ selectedWardrobe, setUpsertWardrobe }: SelectedWardrobeProps) => {
   return (
-    <div className='mt-4 rounded-xl bg-[#e8ffff] p-4'>
+    <div className='mt-4 border border-(--color-line) bg-(--color-ivory) p-4'>
       <Row gutter={[16, 16]}>
         <Col span={5}>
           <Image
             src={selectedWardrobe?.image}
             alt={selectedWardrobe?.name}
-            className='w-47.5! object-contain rounded-md'
+            className='w-47.5! object-contain! border border-(--color-line)'
           />
         </Col>
         <Col span={19}>
           <div className='flex flex-col gap-3'>
             <div>
               <div className='flex items-center gap-x-4'>
-                <div className='text-lg font-semibold'>{selectedWardrobe?.name}</div>
+                <div className='font-serif text-lg font-semibold text-(--color-ink)'>{selectedWardrobe?.name}</div>
                 <Button
                   type='circle'
                   onClick={() => setUpsertWardrobe(selectedWardrobe)}
@@ -38,9 +38,13 @@ const SelectedWardrobe = ({ selectedWardrobe, setUpsertWardrobe }: SelectedWardr
             </div>
 
             <div className='flex flex-wrap gap-2'>
-              <span className='rounded-full bg-white px-4 py-1 text-[13px]'>Màu sắc: {selectedWardrobe?.color}</span>
-              <span className='rounded-full bg-white px-4 py-1 text-[13px]'>Size: {selectedWardrobe?.size}</span>
-              <span className='rounded-full bg-white px-4 py-1 text-[13px]'>
+              <span className='border border-(--color-line) bg-white px-4 py-1 text-[13px] text-(--color-text-default)/80'>
+                Màu sắc: {selectedWardrobe?.color}
+              </span>
+              <span className='border border-(--color-line) bg-white px-4 py-1 text-[13px] text-(--color-text-default)/80'>
+                Size: {selectedWardrobe?.size}
+              </span>
+              <span className='border border-(--color-line) bg-white px-4 py-1 text-[13px] text-(--color-text-default)/80'>
                 Yêu thích: {selectedWardrobe?.isFavourite === BooleanEnum.TRUE ? 'Có' : 'Không'}
               </span>
             </div>

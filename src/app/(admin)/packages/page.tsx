@@ -12,7 +12,8 @@ const Packages = () => {
 
   return (
     <div>
-      <HeaderSection title='Quản lý gói' onAddButton={() => setUpsertUpdatePackage(true)} />
+      <span className='tracking-label text-(--color-gold)'>Quản lý</span>
+      <HeaderSection title='Gói dịch vụ' onAddButton={() => setUpsertUpdatePackage(true)} />
       <div>
         <Table columns={useGeneratePackageColumn(setUpsertUpdatePackage)} data={packages} loading={loading} />
       </div>

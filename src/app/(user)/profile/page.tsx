@@ -82,7 +82,7 @@ const Profile = () => {
                     src={preview ? preview : user?.avatar}
                     alt=''
                     preview={false}
-                    className='w-25.5! h-25.5! object-contain'
+                    className='w-25.5! h-25.5! object-cover! rounded-full! border! border-(--color-line)!'
                   />
                 </Upload>
               </Form.Item>

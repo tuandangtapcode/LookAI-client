@@ -57,8 +57,9 @@ const Users = () => {
 
   return (
     <div>
-      <HeaderSection title='Quản lý người dùng' />
-      <Row className='mb-4' gutter={[8, 8]}>
+      <span className='tracking-label text-(--color-gold)'>Quản lý</span>
+      <HeaderSection title='Người dùng' />
+      <Row className='mb-4 bg-white border border-(--color-line) p-4 mx-0!' gutter={[8, 8]}>
         <Col xxl={14} xl={14} lg={14} md={14} sm={24} xs={24}>
           <Input
             placeholder='Tên người dùng'

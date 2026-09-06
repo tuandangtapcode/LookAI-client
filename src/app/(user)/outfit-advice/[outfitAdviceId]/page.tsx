@@ -15,10 +15,10 @@ const OutfitAdviceDetail = () => {
   const [response, setResponse] = useState<string | null>(null)
 
   return (
-    <div className='bg-white p-6 rounded-lg shadow-lg'>
+    <div className='bg-white p-6 border border-(--color-line)'>
       {/* Tóm tắt dữ liệu form phía trên */}
-      <div className='mb-6 p-4 bg-gray-50 rounded-lg'>
-        <h3 className='text-lg font-semibold mb-2'>Thông tin của bạn:</h3>
+      <div className='mb-6 p-4 border border-(--color-line) bg-(--color-ivory)'>
+        <h3 className='font-serif text-lg font-semibold mb-2 text-(--color-ink)'>Thông tin của bạn:</h3>
         <p>
           <strong>Chiều cao:</strong> {formData.height} cm
         </p>
@@ -64,7 +64,7 @@ const OutfitAdviceDetail = () => {
       <div className='space-y-4'>
         {/* User message */}
         <div className='flex justify-end'>
-          <div className='bg-blue-500 text-white p-3 rounded-lg max-w-md'>
+          <div className='bg-(--color-ink) text-white p-3 max-w-md'>
             <p className='text-sm'>
               Tôi cần tư vấn trang phục cho dịp{' '}
               {formData.occasion === 'casual'
@@ -85,14 +85,17 @@ const OutfitAdviceDetail = () => {
 
         {/* AI message */}
         <div className='flex justify-start'>
-          <div className='bg-gray-200 text-gray-800 p-3 rounded-lg max-w-md'>
+          <div className='bg-(--color-ivory) text-(--color-text-default) p-3 max-w-md border border-(--color-line)'>
             <p className='text-sm'>{response}</p>
           </div>
         </div>
       </div>
 
       <div className='mt-6'>
-        <button onClick={() => {}} className='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'>
+        <button
+          onClick={() => {}}
+          className='bg-(--color-ink) text-white px-4 py-2 hover:bg-(--color-gold) transition-colors'
+        >
           Tư vấn mới
         </button>
       </div>

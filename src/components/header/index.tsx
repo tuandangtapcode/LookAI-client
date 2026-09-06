@@ -53,7 +53,7 @@ const Header = () => {
 
   return (
     <div
-      className={`bg-(--color-primary)! min-h-15 py-2 ${
+      className={`bg-white! border-b border-(--color-line) min-h-17 py-2.5 sticky top-0 z-50 backdrop-blur-md ${
         [routes.login.source, routes.register.source].includes(pathName) ? 'mb-10' : ''
       }`}
     >
@@ -61,20 +61,20 @@ const Header = () => {
         <img
           src='/logo-header.png'
           alt=''
-          className='h-15! object-contain! cursor-pointer'
+          className='h-12! object-contain! cursor-pointer brightness-0!'
           onClick={() => router.push(routes.home.source)}
         />
-        <div className='flex justify-between items-center gap-x-5'>
+        <div className='flex justify-between items-center gap-x-6'>
           {(!user || user?.role !== UserRoleEnum.ADMIN) && (
-            <div className='justify-between items-center gap-x-5 text-white hidden sm:flex'>
+            <div className='justify-between items-center gap-x-8 text-(--color-ink) hidden sm:flex'>
               {menuHeader.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`${
+                  className={`relative py-1.5 text-[13px]! uppercase! tracking-[0.14em]! transition-colors! duration-200! hover:text-(--color-gold)! ${
                     item.href === pathName
-                      ? `bg-(--color-background)! hover:bg-(--color-background)! text-white! rounded-[30px]! ${isPc ? 'px-4!' : 'px-2!'} py-1!`
-                      : ''
+                      ? 'text-(--color-ink)! font-semibold! after:absolute after:-bottom-3.25 after:left-0 after:h-0.5 after:w-full after:bg-(--color-gold)'
+                      : 'text-(--color-ink)/70!'
                   }`}
                 >
                   {item.label}
@@ -97,16 +97,26 @@ const Header = () => {
                 }}
                 trigger={['click']}
               >
-                <div className='flex items-center gap-x-2 text-white'>
-                  <img className='h-10! w-10! object-cover! rounded-full!' src={user?.avatar} alt='' />
-                  <div className='text-[15px]'>{user?.userName}</div>
+                <div className='flex items-center gap-x-2.5 text-(--color-ink)'>
+                  <img
+                    className='h-9! w-9! object-cover! rounded-full! border! border-(--color-line)!'
+                    src={user?.avatar}
+                    alt=''
+                  />
+                  <div className='text-[14px] hidden sm:block'>{user?.userName}</div>
                 </div>
               </Dropdown>
             </div>
           ) : (
             <div className='flex justify-between items-center gap-x-4'>
-              <Button onClick={() => router.push(routes.login.source)} type='login'>
+              <Link
+                href={routes.login.source}
+                className='text-[13px]! uppercase! tracking-[0.14em]! text-(--color-ink)! hover:text-(--color-gold)! transition-colors! hidden sm:inline-block'
+              >
                 Đăng nhập
+              </Link>
+              <Button onClick={() => router.push(routes.register.source)} type='register'>
+                Đăng ký
               </Button>
             </div>
           )}
