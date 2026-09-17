@@ -10,10 +10,13 @@ import { apiGetSubscriptionByUser, apiGetUserSubscriptionHistory, baseRouteUserS
 
 const getUserSubscription = (): Promise<IAxiosResponse<IUserSubscription>> =>
   axiosInstance.get(apiGetSubscriptionByUser)
+
 const updateUserSubscription = (data: IUpdateUserSubscription): Promise<IAxiosResponse<IUserSubscription>> =>
-  axiosInstance.put(apiGetSubscriptionByUser, data)
+  axiosInstance.put(baseRouteUserSubscription, data)
+
 const getDetailUserSubscription = (userId: string): Promise<IAxiosResponse<IUserSubscription>> =>
   axiosInstance.get(`${baseRouteUserSubscription}/${userId}`)
+
 const getUserSubscriptionHistory = (
   params: IGetUserSubscriptionHistory
 ): Promise<IAxiosResponse<IGetListResponse<IUserSubscriptionHistory>>> =>

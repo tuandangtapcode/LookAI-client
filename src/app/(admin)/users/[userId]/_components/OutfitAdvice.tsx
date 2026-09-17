@@ -27,7 +27,7 @@ const OutfitAdvice = ({ userId }: OutfitAdviceProps) => {
     try {
       setLoading(true)
 
-      const res = await OutfitAdviceService.getListOutfitAdviceByAdmin(query)
+      const res = await OutfitAdviceService.getListOutfitAdvice(query)
       if (res?.error) return notify('error', res?.msg)
 
       setOutfitAdvices(res?.data?.list)

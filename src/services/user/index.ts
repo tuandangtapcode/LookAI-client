@@ -5,10 +5,12 @@ import axiosInstance, { IAxiosResponse } from '..'
 import { baseRouteUser } from './urls'
 
 const updateProfile = (body: IUpdateProfile): Promise<IAxiosResponse<IUser>> => axiosInstance.put(baseRouteUser, body)
+
 const getListUser = (params: IGetListUser): Promise<IAxiosResponse<IGetListResponse<IUserList>>> => {
   const _params = truncateParams(params)
   return axiosInstance.get(`${baseRouteUser}${_params}`)
 }
+
 const getDetailUser = (userId: string): Promise<IAxiosResponse<IUser>> =>
   axiosInstance.get(`${baseRouteUser}/${userId}`)
 

@@ -82,19 +82,16 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
     <div>
       <Header />
       {noFooterRoutes.includes(`/${splitedPath}`) ? (
-        <div className='bg-(--color-primary-matte) p-3'>
+        <div className='bg-(--color-primary-matte) h-[calc(100dvh-68px)] p-3'>
           <div className='bg-transparent text-black h-full rounded-md py-3 px-4'>
-            {menuDropdown}
             <div className='mt-2'>{children}</div>
           </div>
         </div>
       ) : (
         <>
           <div className='bg-(--color-primary-matte) py-10'>
-            <div
-              className={`flex ${!isPc && 'flex-col'} w-[90%] md:w-[85%] lg:w-[80%] m-auto h-[calc()100dvh] gap-y-2 gap-x-2`}
-            >
-              {isPc ? (
+            <div className={`flex ${!isPc && 'flex-col'} w-[90%] md:w-[85%] lg:w-[80%] m-auto gap-y-2 gap-x-2`}>
+              {isPc && (
                 <div className='w-[27%] bg-white rounded-xl self-start'>
                   <div className='pt-3 px-5 mb-5'>
                     <div className='flex items-center mb-3 gap-x-2'>
@@ -122,8 +119,6 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                     }}
                   />
                 </div>
-              ) : (
-                <div className='self-start'>{menuDropdown}</div>
               )}
               <div className='flex-1 py-4 px-5 bg-white rounded-xl min-h-137.5'>{children}</div>
             </div>

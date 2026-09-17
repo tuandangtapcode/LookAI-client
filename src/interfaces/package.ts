@@ -6,6 +6,7 @@ export interface IPackage extends IBaseData {
   duration?: number
   price: number
   quota: number
+  refine: number
   description: string
   isActive: BooleanEnum
 }
@@ -15,6 +16,7 @@ export interface ICreatePackage {
   duration?: number
   price: number
   quota: number
+  refine: number
   description: string
   isActive: BooleanEnum
 }

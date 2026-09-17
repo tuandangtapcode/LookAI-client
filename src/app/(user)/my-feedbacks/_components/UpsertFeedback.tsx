@@ -6,7 +6,6 @@ import { globalSelector } from '@/redux/store'
 import FeedbackService from '@/services/feedback'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, Form, Input, Row, Select } from 'antd'
 import { useEffect, useState } from 'react'
@@ -44,8 +43,6 @@ const UpsertFeedback = ({ open, onCancel, setFeedbacks }: IUpsertFeedbackProps) 
       )
       notify('success', res?.msg)
       onCancel()
-    } catch (error) {
-      logError('UpsertFeedback.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

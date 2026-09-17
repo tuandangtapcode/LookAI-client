@@ -6,10 +6,12 @@ import { apiGetListPaymentByUser, baseRoutePayment } from './url'
 
 const createPayment = (body: ICreatePayment): Promise<IAxiosResponse<null>> =>
   axiosInstance.post(baseRoutePayment, body)
+
 const getListPayment = (params: IGetListPayment): Promise<IAxiosResponse<IGetListResponse<IPayment>>> => {
   const _params = truncateParams(params)
   return axiosInstance.get(`${baseRoutePayment}${_params}`)
 }
+
 const getListPaymentByUser = (params: IGetListPayment): Promise<IAxiosResponse<IGetListResponse<IPayment>>> => {
   const _params = truncateParams(params)
   return axiosInstance.get(`${apiGetListPaymentByUser}${_params}`)

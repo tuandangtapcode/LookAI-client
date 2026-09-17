@@ -18,18 +18,30 @@ const Header = () => {
   const isPc = useCheckDeviceScreen('pc')
 
   const menuAccountUser: MenuProps['items'] = [
-    ...(!isPc
-      ? [
-          {
-            key: routes.packagesList.source,
-            label: 'Gói dịch vụ'
-          }
-        ]
-      : []),
     {
       key: routes.profile.source,
       label: 'Thông tin tài khoản'
     },
+    ...(!isPc || pathName.includes(routes.wardrobe.source) || pathName.includes(routes.outfitAdvice.source)
+      ? [
+          {
+            key: routes.packagesList.source,
+            label: 'Gói dịch vụ'
+          },
+          {
+            key: routes.wardrobe.source,
+            label: 'Tủ quần áo'
+          },
+          {
+            key: routes.outfitAdvice.source,
+            label: 'Tư vấn phối đồ'
+          },
+          {
+            key: routes.userSubscription.source,
+            label: 'Gói đăng ký'
+          }
+        ]
+      : []),
     {
       key: 'Đóng góp ý kiến',
       label: 'Đóng góp ý kiến'

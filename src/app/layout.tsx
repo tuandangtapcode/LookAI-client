@@ -42,7 +42,10 @@ const antdTheme = {
     colorBgLayout: '#faf7f2',
     fontFamily: 'var(--font-geist-sans)',
     borderRadius: 8,
-    controlHeight: 38
+    controlHeight: 38,
+    controlItemBgHover: '#f6f1e6',
+    controlItemBgActive: '#f2ecdf',
+    controlItemBgActiveHover: '#e9dcc0'
   },
   components: {
     Button: {
@@ -62,6 +65,15 @@ const antdTheme = {
     },
     Progress: {
       defaultColor: '#b8935a'
+    },
+    Select: {
+      optionSelectedBg: '#f2ecdf',
+      optionSelectedColor: '#1a1714',
+      optionActiveBg: '#f6f1e6'
+    },
+    Rate: {
+      starColor: '#b8935a',
+      starBg: '#e6d7c1'
     }
   }
 }

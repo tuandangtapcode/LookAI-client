@@ -13,5 +13,6 @@ export const SYSTEM_KEY = {
   FEEDBACK_TYPE: 'FeedbackType',
   FEEDBACK_STATUS: 'FeedbackStatus',
   LOG_TYPE: 'LogType',
-  LOG_SERVICE: 'LogService'
+  LOG_SERVICE: 'LogService',
+  OUTFIT_ADVICE_RATING: 'OutfitAdviceRating'
 }

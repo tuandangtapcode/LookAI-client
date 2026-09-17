@@ -5,7 +5,6 @@ import { globalSelector } from '@/redux/store'
 import ItemTypeService from '@/services/item-type'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, Form, Input, Row, Select } from 'antd'
 import { useEffect, useState } from 'react'
@@ -40,8 +39,6 @@ const UpsertItemType = ({ open, onCancel, onOk }: UpsertItemTypeProps) => {
       onOk()
       notify('success', res?.msg)
       onCancel()
-    } catch (error) {
-      logError('UpsertItemType.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

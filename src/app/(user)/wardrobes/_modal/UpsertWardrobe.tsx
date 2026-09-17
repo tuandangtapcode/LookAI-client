@@ -7,7 +7,6 @@ import FileService from '@/services/file'
 import WardrobeService from '@/services/wardrobe'
 import { BooleanEnum, ItemCategoryEnum } from '@/utils/enum/common'
 import { handleBeforeUpload } from '@/utils/helper/file'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Checkbox, Col, Form, Input, Row, Select, Upload } from 'antd'
 import { useEffect, useState } from 'react'
@@ -57,8 +56,6 @@ const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes 
       )
       notify('success', res?.msg)
       onCancel()
-    } catch (error) {
-      logError('UpsertWardrobe.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

@@ -62,6 +62,11 @@ export const useGenerateUserSubscriptionDetail = (subscription?: IUserSubscripti
       children: subscription?.package?.quota
     },
     {
+      key: '10',
+      label: 'Lượt tinh chỉnh',
+      children: subscription?.package?.refine
+    },
+    {
       key: '6',
       label: 'Ngày bắt đầu',
       children: formatDate(subscription?.startDate)

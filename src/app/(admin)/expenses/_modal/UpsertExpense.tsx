@@ -3,7 +3,6 @@ import Modal from '@/components/modal'
 import { IExpense } from '@/interfaces/expense'
 import ExpenseService from '@/services/expense'
 import { ExpenseTypeEnum } from '@/utils/enum/expense'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd'
 import dayjs from 'dayjs'
@@ -38,8 +37,6 @@ const UpsertExpense = ({ open, onCancel, onOk }: UpsertExpenseProps) => {
       onOk()
       notify('success', res?.msg)
       onCancel()
-    } catch (error) {
-      logError('UpsertExpense.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

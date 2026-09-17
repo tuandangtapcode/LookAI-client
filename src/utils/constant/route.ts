@@ -47,6 +47,11 @@ export const routes = {
     destination: '/logs',
     isAdmin: true
   },
+  systemkeys: {
+    source: '/systemkeys',
+    destination: '/systemkeys',
+    isAdmin: true
+  },
 
   // user
   profile: {
@@ -62,6 +67,11 @@ export const routes = {
   outfitAdvice: {
     source: '/tu-van-phoi-do',
     destination: '/outfit-advice',
+    isAdmin: false
+  },
+  outfitAdviceDetail: {
+    source: '/tu-van-phoi-do/:outfitAdviceId',
+    destination: '/outfit-advice/:outfitAdviceId',
     isAdmin: false
   },
   userSubscription: {

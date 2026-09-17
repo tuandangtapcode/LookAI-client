@@ -10,7 +10,6 @@ import UserService from '@/services/user'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
 import { handleBeforeUpload } from '@/utils/helper/file'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Card, Col, DatePicker, Form, Image, Input, InputNumber, Row, Select, Upload } from 'antd'
 import dayjs from 'dayjs'
@@ -49,8 +48,6 @@ const Profile = () => {
 
       dispatch(globalSlice.actions.setUser(resProfile?.data))
       notify('success', res?.msg)
-    } catch (error) {
-      logError('Profile.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }

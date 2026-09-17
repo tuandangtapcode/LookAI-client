@@ -8,6 +8,7 @@ const statisticTokenUsed = (params: IStatistic): Promise<IAxiosResponse<IStatist
   const _params = truncateParams(params)
   return axiosInstance.get(`${apiStatisticTokenUsed}${_params}`)
 }
+
 const statisticFinancial = (params: IStatistic): Promise<IAxiosResponse<IStatisticFinancial>> => {
   const _params = truncateParams(params)
   return axiosInstance.get(`${apiStatisticFinancial}${_params}`)

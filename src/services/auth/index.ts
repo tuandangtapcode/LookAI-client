@@ -10,10 +10,15 @@ const getInforByGoogleLogin = (access_token: string) =>
       Authorization: `Bearer ${access_token}`
     }
   })
+
 const register = (body: IRegister): Promise<IAxiosResponse<string>> => axiosInstance.post(apiRegister, body)
+
 const login = (body: ILogin): Promise<IAxiosResponse<string>> => axiosInstance.post(apiLogin, body)
+
 const checkAuth = (): Promise<IAxiosResponse<ITokenData | null>> => axiosInstance.get(apiCheckAuth)
+
 const getDetailProfile = (): Promise<IAxiosResponse<IUser>> => axiosInstance.get(apiGetDetailProfile)
+
 const logout = (): Promise<IAxiosResponse<string>> => axiosInstance.get(apiLogout)
 
 const AuthService = {

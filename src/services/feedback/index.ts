@@ -8,10 +8,13 @@ const getListFeedback = (params: IGetListFeedback): Promise<IAxiosResponse<IGetL
   const _params = truncateParams(params)
   return axiosInstance.get(`${baseRouteFeedback}${_params}`)
 }
+
 const createFeedback = (body: ICreateFeedback): Promise<IAxiosResponse<IFeedback>> =>
   axiosInstance.post(baseRouteFeedback, body)
+
 const updateFeedback = (body: IUpdateFeedback): Promise<IAxiosResponse<IFeedback>> =>
   axiosInstance.put(baseRouteFeedback, body)
+
 const getListFeedbackByUser = (params: IGetListFeedback): Promise<IAxiosResponse<IGetListResponse<IFeedback>>> => {
   const _params = truncateParams(params)
   return axiosInstance.get(`${apiGetListFeedbackByUser}${_params}`)

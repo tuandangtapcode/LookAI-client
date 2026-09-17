@@ -53,13 +53,9 @@ const Register = () => {
   })
 
   const handleSubmit = async () => {
-    try {
-      const values = await form.validateFields()
-      setFormData(values)
-      handleLoginGoogle()
-    } catch (error) {
-      logError('Register.tsx-handleSubmit', error)
-    }
+    const values = await form.validateFields()
+    setFormData(values)
+    handleLoginGoogle()
   }
 
   return (

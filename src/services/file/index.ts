@@ -8,6 +8,7 @@ const uploadSingleFile = (body: IUploadSingleFile): Promise<IAxiosResponse<strin
       'Content-Type': 'multipart/form-data'
     }
   })
+
 const uploadMultipleFile = (body: FormData): Promise<IAxiosResponse<IFile[]>> =>
   axiosInstance.post(apiUploadMultipleFile, body, {
     headers: {

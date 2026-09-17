@@ -4,8 +4,10 @@ import { baseRouteItemType } from './urls'
 
 const createItemType = (body: ICreateItemType): Promise<IAxiosResponse<IItemType>> =>
   axiosInstance.post(baseRouteItemType, body)
+
 const updateItemType = (body: IUpdateItemType): Promise<IAxiosResponse<IItemType>> =>
   axiosInstance.put(baseRouteItemType, body)
+
 const getListItemType = (): Promise<IAxiosResponse<IItemType[]>> => axiosInstance.get(baseRouteItemType)
 
 const ItemTypeService = {

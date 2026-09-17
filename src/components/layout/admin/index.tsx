@@ -63,6 +63,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       icon: icons.ICON_LOG
     },
     {
+      key: routes.systemkeys.source,
+      label: 'Systemkeys',
+      icon: icons.ICON_SYSTEM_KEY
+    },
+    {
       key: 'logout',
       label: 'Đăng xuất',
       icon: icons.ICON_LOGOUT

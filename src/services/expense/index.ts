@@ -8,8 +8,10 @@ const getListExpense = (params: IGetListExpense): Promise<IAxiosResponse<IGetLis
   const _params = truncateParams(params)
   return axiosInstance.get(`${baseRouteExpense}${_params}`)
 }
+
 const createExpense = (body: ICreateExpense): Promise<IAxiosResponse<IExpense>> =>
   axiosInstance.post(baseRouteExpense, body)
+
 const updateExpense = (body: IUpdateExpense): Promise<IAxiosResponse<IExpense>> =>
   axiosInstance.put(baseRouteExpense, body)
 

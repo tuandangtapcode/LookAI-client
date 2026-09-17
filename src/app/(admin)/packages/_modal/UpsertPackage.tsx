@@ -3,7 +3,6 @@ import Modal from '@/components/modal'
 import TinyEditor from '@/components/tiny-editor'
 import { IPackage } from '@/interfaces/package'
 import PackageService from '@/services/package'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Col, Form, Input, InputNumber, Row } from 'antd'
 import { useEffect, useState } from 'react'
@@ -35,8 +34,6 @@ const UpsertPackage = ({ open, onCancel, onOk }: UpsertPackageProps) => {
       onOk()
       notify('success', res?.msg)
       onCancel()
-    } catch (error) {
-      logError('UpsertPackage.tsx-handleSubmit', error)
     } finally {
       setLoading(false)
     }
@@ -84,6 +81,15 @@ const UpsertPackage = ({ open, onCancel, onOk }: UpsertPackageProps) => {
               label='Số lượng request/tháng'
             >
               <InputNumber placeholder='Số lượng request/tháng' />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            <Form.Item
+              name='refine'
+              rules={[{ required: true, message: 'Thông tin không được để trống' }]}
+              label='Số lượt tinh chỉnh lượt/request'
+            >
+              <InputNumber placeholder='Số lượt tinh chỉnh lượt/request' />
             </Form.Item>
           </Col>
           <Col span={24}>

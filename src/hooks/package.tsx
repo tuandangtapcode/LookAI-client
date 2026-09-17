@@ -56,6 +56,12 @@ export const useGeneratePackageColumn = (onEdit: (record: IPackage) => void) => 
       dataIndex: 'quota'
     },
     {
+      title: 'Số lượt tinh chỉnh (lượt/request)',
+      align: 'center',
+      key: 'refine',
+      dataIndex: 'refine'
+    },
+    {
       title: 'Chức năng',
       align: 'center',
       key: 'action',

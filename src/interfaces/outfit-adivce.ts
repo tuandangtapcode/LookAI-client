@@ -1,3 +1,4 @@
+import { OutfitAdviceRatingEnum } from '@/utils/enum/outfit-advice'
 import { GenderEnum } from '@/utils/enum/user'
 import { IBaseData, IPagination } from './common'
 import { IPackage } from './package'
@@ -17,11 +18,6 @@ export interface ICreateOutfitAdvice {
   occasion: string
 }
 
-export interface ICreateOutfitAdviceResponse {
-  answer: string
-  payload: ICreateOutfitAdvice
-}
-
 export interface IFeedbackOutfitAdvice {
   outfitAdviceId: string
   feedback: string
@@ -36,7 +32,7 @@ export interface IOutfitAdvice extends IBaseData {
   responsePayload: string
   inputToken: number
   outputToken: number
-  feedback?: string
+  parentAdviceId?: string
   user: IUser
   package: IPackage
 }
@@ -51,4 +47,10 @@ export interface IGetTopTokenUsed {
   userName: string
   totalInputToken: number
   totalOutputToken: number
+}
+
+export interface IRefineOutfitAdvice {
+  outfitAdviceId: string
+  rating: OutfitAdviceRatingEnum
+  feedback: string
 }

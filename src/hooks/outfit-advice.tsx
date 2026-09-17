@@ -1,6 +1,24 @@
 import { IGetListOutfitAdvice, IOutfitAdvice } from '@/interfaces/outfit-adivce'
+import { globalSelector } from '@/redux/store'
+import OutfitAdviceService from '@/services/outfit-advice'
+import { apiGetListOutfitAdviceByUser } from '@/services/outfit-advice/urls'
 import { formatDate } from '@/utils/helper/date'
 import { TableColumnsType } from 'antd'
+import { useSelector } from 'react-redux'
+import useSWR from 'swr'
+
+export const useOutfitAdviceHistory = () => {
+  const { user } = useSelector(globalSelector)
+  const { data, isLoading, mutate } = useSWR(user ? `${apiGetListOutfitAdviceByUser}/${user?.id}` : null, () =>
+    OutfitAdviceService.getListOutfitAdviceByUser()
+  )
+
+  return {
+    outfitAdvices: data?.data,
+    loading: isLoading,
+    refresh: mutate
+  }
+}
 
 export const useGenerateOutfitAdviceColumn = (query: IGetListOutfitAdvice) => {
   const columns: TableColumnsType<IOutfitAdvice> = [

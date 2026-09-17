@@ -11,6 +11,7 @@ import {
   AiOutlineClose,
   AiOutlineCloseCircle,
   AiOutlineCloudUpload,
+  AiOutlineCluster,
   AiOutlineComment,
   AiOutlineEye,
   AiOutlineFilter,
@@ -73,7 +74,8 @@ const icons = {
   ICON_FINACE: <MdAttachMoney className='text-[20px]!' />,
   ICON_FILTER: <AiOutlineFilter />,
   ICON_FEEDBACK: <AiOutlineComment className='text-[20px]!' />,
-  ICON_LOG: <AiOutlineBug className='text-[20px]!' />
+  ICON_LOG: <AiOutlineBug className='text-[20px]!' />,
+  ICON_SYSTEM_KEY: <AiOutlineCluster className='text-[20px]!' />
 }
 
 export default icons
