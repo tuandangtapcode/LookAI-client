@@ -1,12 +1,11 @@
 'use client'
 import Modal from '@/components/modal'
 import { IItemType } from '@/interfaces/item-type'
-import { IWardrobe } from '@/interfaces/wardrobe'
-import { IAxiosResponse } from '@/services'
-import FileService from '@/services/file'
+import { IAnalyzeWardrobeImageResult, IWardrobe } from '@/interfaces/wardrobe'
 import WardrobeService from '@/services/wardrobe'
 import { BooleanEnum, ItemCategoryEnum } from '@/utils/enum/common'
-import { handleBeforeUpload } from '@/utils/helper/file'
+import { handleBeforeUpload, handleUploadFile } from '@/utils/helper/file'
+import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { Checkbox, Col, Form, Input, Row, Select, Upload } from 'antd'
 import { useEffect, useState } from 'react'
@@ -24,23 +23,43 @@ const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes 
   const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const [preview, setPreview] = useState('')
+  const [analyzedWardrobeImage, setAnalyzedWardrobeImage] = useState<IAnalyzeWardrobeImageResult>()
+
+  const handleAnalyzeWardrobeImage = async (fileInfo: any) => {
+    try {
+      setLoading(true)
+
+      if (!fileInfo) return notify('error', 'Hãy upload file ảnh')
+
+      const fileUrl = await handleUploadFile(fileInfo.file)
+      if (!fileUrl) return notify('error', 'Lỗi upload file')
+
+      const resAnalyzed = await WardrobeService.analyzeWardrobeImage({
+        image: fileUrl,
+        itemCategory
+      })
+      if (resAnalyzed?.error) return notify('error', resAnalyzed?.msg)
+
+      setAnalyzedWardrobeImage(resAnalyzed?.data)
+      setPreview(fileUrl)
+      form.setFieldsValue(resAnalyzed?.data)
+    } catch (error) {
+      logError('UpsertWardrobe.tsx-handleAnalyzeWardrobeImage', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleSubmit = async () => {
     try {
       setLoading(true)
 
-      const { file, isFavourite, ...rest } = await form.validateFields()
-      let resFile: IAxiosResponse<string> | undefined
-
-      if (file?.file) {
-        resFile = await FileService.uploadSingleFile({ file: file.file })
-        if (resFile?.error) return notify('error', resFile?.msg)
-      }
+      const { isFavourite, file, ...rest } = await form.validateFields()
 
       const body = {
         ...rest,
         itemCategory,
-        image: resFile?.data ? resFile?.data : preview,
+        image: preview,
         isFavourite: isFavourite ? BooleanEnum.TRUE : BooleanEnum.FALSE,
         wardrobeId: isEdit ? open?.id : undefined
       }
@@ -78,6 +97,7 @@ const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes 
       onCancel={onCancel}
       onSubmit={handleSubmit}
       loading={loading}
+      disabled={!analyzedWardrobeImage}
     >
       <Form form={form} layout='vertical'>
         <Row gutter={[8, 0]}>
@@ -89,6 +109,7 @@ const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes 
             >
               <Upload
                 beforeUpload={(file) => handleBeforeUpload(file, setPreview)}
+                onChange={handleAnalyzeWardrobeImage}
                 accept='image/*'
                 listType='picture-card'
                 multiple={false}
@@ -103,7 +124,7 @@ const UpsertWardrobe = ({ open, itemCategory, onCancel, setWardrobes, itemTypes 
               </Upload>
             </Form.Item>
           </Col>
-          <Col span={14}>
+          <Col span={14} className={`${!analyzedWardrobeImage ? 'hidden!' : ''}`}>
             <Form.Item
               name='name'
               rules={[{ required: true, message: 'Thông tin không được để trống' }]}

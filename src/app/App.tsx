@@ -20,7 +20,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
     try {
       await dispatch(getListSystemkeyThunk())
     } catch (error) {
-      console.log('error: ', error);
       logError('App.tsx-getListSystemkey', error)
     }
   }
@@ -49,6 +48,13 @@ const App = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     getListSystemkey()
   }, [])
+
+  useEffect(() => {
+    const route = Object.values(routes).find((r) =>
+      new RegExp(`^${r.source.replace(/:[^/]+/g, '[^/]+')}$`).test(pathName)
+    )
+    document.title = route ? (route.isAdmin ? 'MacGi' : `MacGi | ${route.title}`) : 'MacGi'
+  }, [pathName])
 
   useEffect(() => {
     if (isCheckAuth) {

@@ -35,7 +35,12 @@ const UserInfor = ({ user, loading }: UserInforProps) => {
         <div className='flex flex-col md:flex-row md:items-start gap-4'>
           <div className='shrink-0'>
             <div className='w-24 h-24 rounded-full overflow-hidden bg-(--color-ivory-deep) flex items-center justify-center'>
-              <img src={user?.avatar} alt={user?.userName} className='w-24 h-24 object-cover' />
+              <img
+                src={user?.avatar}
+                alt={user?.userName}
+                referrerPolicy='no-referrer'
+                className='w-24 h-24 object-cover'
+              />
             </div>
           </div>
 

@@ -40,3 +40,15 @@ export interface IGetQuantityWardrobe {
   itemTypeId: string
   quantity: number
 }
+
+export interface IAnalyzeWardrobeImageBody {
+  image: string
+  itemCategory: ItemCategoryEnum
+}
+
+export interface IAnalyzeWardrobeImageResult {
+  itemTypeId: string
+  name: string
+  color: string
+  size: string
+}

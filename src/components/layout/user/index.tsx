@@ -96,7 +96,12 @@ const UserLayout = ({ children }: { children: React.ReactNode }) => {
                   <div className='pt-3 px-5 mb-5'>
                     <div className='flex items-center mb-3 gap-x-2'>
                       <div className='w-15 h-15 shrink-0'>
-                        <img src={user?.avatar} alt='' className='rounded-full w-full h-full object-cover' />
+                        <img
+                          src={user?.avatar}
+                          alt={user?.userName}
+                          className='rounded-full w-full h-full object-cover'
+                          referrerPolicy='no-referrer'
+                        />
                       </div>
                       <div className='flex-1 min-w-0'>
                         <div>{user?.userName}</div>

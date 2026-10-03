@@ -7,7 +7,6 @@ import AuthService from '@/services/auth'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { routes } from '@/utils/constant/route'
 import { getListComboKey } from '@/utils/helper/common'
-import { logError } from '@/utils/helper/log'
 import { getRegexPhoneNumber } from '@/utils/helper/string'
 import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
@@ -27,25 +26,18 @@ const Register = () => {
   const [formData, setFormData] = useState<any>()
 
   const handleLoginGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    flow: 'auth-code',
+    onSuccess: async ({ code }) => {
       try {
         setLoading(true)
 
-        const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
-        const dataFromGoogle = userInfor?.data
-
         const res = await AuthService.register({
           ...formData,
-          email: dataFromGoogle.email,
-          sub: dataFromGoogle.sub,
-          userName: dataFromGoogle.name,
-          avatar: dataFromGoogle.picture
+          code
         })
         if (res?.error) return notify('error', res?.msg)
 
         dispatch(globalSlice.actions.setIsCheckAuth(true))
-      } catch (error) {
-        logError('Register.tsx-handleLoginGoogle', error)
       } finally {
         setLoading(false)
       }

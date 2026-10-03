@@ -3,7 +3,7 @@ import { routes } from '@/utils/constant/route'
 import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons'
 import { Col, Image, Row } from 'antd'
 import { usePathname } from 'next/navigation'
-import { FaTiktok } from 'react-icons/fa6'
+import { FaTiktok } from '@/components/icons/svg'
 import icons from '../icons'
 
 const Footer = () => {
@@ -17,7 +17,7 @@ const Footer = () => {
     >
       <Row gutter={[40, 32]}>
         <Col xs={24} md={8} className='flex flex-col items-center md:items-start text-center md:text-left'>
-          <Image src='/logo-header.png' alt='' preview={false} className='cursor-pointer !w-[80px] !h-[80px]' />
+          <Image src='/logo.png' alt='' preview={false} className='cursor-pointer !w-[80px] !h-[80px]' />
           <p className='mt-3 max-w-60 text-[13px] leading-relaxed text-white/55'>
             Nền tảng tư vấn phong cách bằng AI — giúp bạn mặc đẹp, đúng gu, mỗi ngày.
           </p>

@@ -1,4 +1,3 @@
-export const apiGetInforByGoogleLogin = 'https://www.googleapis.com/oauth2/v3/userinfo'
 export const apiRegister = 'auth/register'
 export const apiLogin = 'auth/login'
 export const apiCheckAuth = 'auth/check-auth'

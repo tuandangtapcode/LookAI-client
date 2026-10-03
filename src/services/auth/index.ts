@@ -1,15 +1,7 @@
 import { ILogin, IRegister, ITokenData } from '@/interfaces/auth'
 import { IUser } from '@/interfaces/user'
-import axios from 'axios'
 import axiosInstance, { IAxiosResponse } from '..'
-import { apiCheckAuth, apiGetDetailProfile, apiGetInforByGoogleLogin, apiLogin, apiLogout, apiRegister } from './url'
-
-const getInforByGoogleLogin = (access_token: string) =>
-  axios.get(apiGetInforByGoogleLogin, {
-    headers: {
-      Authorization: `Bearer ${access_token}`
-    }
-  })
+import { apiCheckAuth, apiGetDetailProfile, apiLogin, apiLogout, apiRegister } from './url'
 
 const register = (body: IRegister): Promise<IAxiosResponse<string>> => axiosInstance.post(apiRegister, body)
 
@@ -22,7 +14,6 @@ const getDetailProfile = (): Promise<IAxiosResponse<IUser>> => axiosInstance.get
 const logout = (): Promise<IAxiosResponse<string>> => axiosInstance.get(apiLogout)
 
 const AuthService = {
-  getInforByGoogleLogin,
   register,
   login,
   checkAuth,

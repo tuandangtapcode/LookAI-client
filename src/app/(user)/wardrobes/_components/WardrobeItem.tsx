@@ -8,7 +8,7 @@ import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { HeartFilled } from '@ant-design/icons'
 import { Card } from 'antd'
-import { BiHeart } from 'react-icons/bi'
+import { BiHeart } from '@/components/icons/svg'
 
 const { Meta } = Card
 

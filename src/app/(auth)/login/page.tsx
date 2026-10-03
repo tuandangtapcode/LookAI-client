@@ -4,7 +4,6 @@ import icons from '@/components/icons'
 import globalSlice from '@/redux/globalSlice'
 import AuthService from '@/services/auth'
 import { routes } from '@/utils/constant/route'
-import { logError } from '@/utils/helper/log'
 import notify from '@/utils/notify'
 import { useGoogleLogin } from '@react-oauth/google'
 import { Col, Form, Image, Row, Typography } from 'antd'
@@ -19,19 +18,15 @@ const Login = () => {
   const pathName = usePathname()
 
   const handleLoginGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    flow: 'auth-code',
+    onSuccess: async ({ code }) => {
       try {
         setLoading(true)
 
-        const userInfor = await AuthService.getInforByGoogleLogin(tokenResponse?.access_token)
-        const dataFromGoogle = userInfor?.data
-
-        const res = await AuthService.login({ email: dataFromGoogle.email, sub: dataFromGoogle.sub })
+        const res = await AuthService.login({ code })
         if (res?.error) return notify('error', res?.msg)
 
         dispatch(globalSlice.actions.setIsCheckAuth(true))
-      } catch (error) {
-        logError('Login.tsx-handleLoginGoogle', error)
       } finally {
         setLoading(false)
       }

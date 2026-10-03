@@ -71,9 +71,9 @@ const Header = () => {
     >
       <div className='flex justify-between items-center sm:w-[85%] w-[90%] m-auto'>
         <img
-          src='/logo-header.png'
+          src='/logo.png'
           alt=''
-          className='h-12! object-contain! cursor-pointer brightness-0!'
+          className='h-12! object-contain! cursor-pointer'
           onClick={() => router.push(routes.home.source)}
         />
         <div className='flex justify-between items-center gap-x-6'>
@@ -112,8 +112,9 @@ const Header = () => {
                 <div className='flex items-center gap-x-2.5 text-(--color-ink)'>
                   <img
                     className='h-9! w-9! object-cover! rounded-full! border! border-(--color-line)!'
+                    referrerPolicy='no-referrer'
                     src={user?.avatar}
-                    alt=''
+                    alt={user?.userName}
                   />
                   <div className='text-[14px] hidden sm:block'>{user?.userName}</div>
                 </div>

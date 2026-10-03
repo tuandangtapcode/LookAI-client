@@ -3,13 +3,11 @@ import Button from '@/components/button'
 import { useCheckDeviceScreen } from '@/hooks/common'
 import globalSlice from '@/redux/globalSlice'
 import { globalSelector } from '@/redux/store'
-import { IAxiosResponse } from '@/services'
 import AuthService from '@/services/auth'
-import FileService from '@/services/file'
 import UserService from '@/services/user'
 import { SYSTEM_KEY } from '@/utils/constant/common'
 import { getListComboKey } from '@/utils/helper/common'
-import { handleBeforeUpload } from '@/utils/helper/file'
+import { handleBeforeUpload, handleUploadFile } from '@/utils/helper/file'
 import notify from '@/utils/notify'
 import { Card, Col, DatePicker, Form, Image, Input, InputNumber, Row, Select, Upload } from 'antd'
 import dayjs from 'dayjs'
@@ -30,16 +28,16 @@ const Profile = () => {
       setLoading(true)
 
       const { file, email, ...rest } = await form.validateFields()
-      let resFile: IAxiosResponse<string> | undefined
+      let fileUrl = ''
 
       if (file) {
-        resFile = await FileService.uploadSingleFile({ file: file.file })
-        if (resFile?.error) return notify('error', resFile?.msg)
+        fileUrl = await handleUploadFile(file?.file)
+        if (!fileUrl) return notify('error', 'Lỗi upload file')
       }
 
       const res = await UserService.updateProfile({
         ...rest,
-        avatar: resFile?.data ? resFile?.data : user?.avatar
+        avatar: fileUrl ? fileUrl : user?.avatar
       })
       if (res?.error) return notify('error', res?.msg)
 

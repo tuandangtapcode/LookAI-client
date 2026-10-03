@@ -19,17 +19,29 @@ import {
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
   AiOutlinePlus,
-  AiOutlineUser
-} from 'react-icons/ai'
-import { BiArchive, BiBarChart, BiEdit, BiLogIn, BiMenu, BiTrash } from 'react-icons/bi'
-import { BsFillTrash3Fill, BsTelephone } from 'react-icons/bs'
-import { CgRing } from 'react-icons/cg'
-import { FaLocationDot } from 'react-icons/fa6'
-import { FcGoogle } from 'react-icons/fc'
-import { GiSkirt } from 'react-icons/gi'
-import { MdAttachMoney, MdPayment } from 'react-icons/md'
-import { PiDress, PiHandbag, PiPants, PiSneaker, PiTShirt } from 'react-icons/pi'
-import { TbLock, TbLockOpen } from 'react-icons/tb'
+  AiOutlineUser,
+  BiArchive,
+  BiBarChart,
+  BiEdit,
+  BiLogIn,
+  BiMenu,
+  BiTrash,
+  BsFillTrash3Fill,
+  BsTelephone,
+  CgRing,
+  FaLocationDot,
+  FcGoogle,
+  GiSkirt,
+  MdAttachMoney,
+  MdPayment,
+  PiDress,
+  PiHandbag,
+  PiPants,
+  PiSneaker,
+  PiTShirt,
+  TbLock,
+  TbLockOpen
+} from './svg'
 
 const icons = {
   ICON_GOOGLE: <FcGoogle />,
