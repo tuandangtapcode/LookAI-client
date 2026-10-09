@@ -44,7 +44,7 @@ const Login = () => {
         <Col xxl={11} xl={11} lg={11} md={11} span={24}>
           <Row>
             <Col span={24} className='mb-7'>
-              <span className='tracking-label block text-center text-(--color-gold)'>LookAI</span>
+              <span className='tracking-label block text-center text-(--color-gold)'>MặcGì</span>
               <Typography.Title level={3} className='mb-4! mt-2! text-center! text-[26px]!'>
                 Chào mừng bạn trở lại
               </Typography.Title>

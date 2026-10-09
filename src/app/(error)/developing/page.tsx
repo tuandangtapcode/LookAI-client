@@ -18,7 +18,7 @@ const Developing = () => {
         Tính năng đang được phát triển
       </Typography.Title>
       <Typography.Paragraph className='mb-8! max-w-md text-(--color-text-default)/70!'>
-        Chức năng này hiện chưa sẵn sàng để sử dụng. Đội ngũ LookAI đang hoàn thiện trải nghiệm tốt nhất cho bạn, vui
+        Chức năng này hiện chưa sẵn sàng để sử dụng. Đội ngũ MặcGì đang hoàn thiện trải nghiệm tốt nhất cho bạn, vui
         lòng quay lại sau nhé.
       </Typography.Paragraph>
       <Button type='save' onClick={() => router.push(routes.home.source)}>

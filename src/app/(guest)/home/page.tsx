@@ -69,7 +69,7 @@ const Home = () => {
               level={1}
               className='mb-6! mt-0! text-[42px]! leading-[1.15]! font-semibold! md:text-[64px]!'
             >
-              LookAI giúp bạn mặc đẹp
+              MặcGì giúp bạn mặc đẹp
               <br />
               <em className='text-(--color-gold)' style={{ fontStyle: 'italic' }}>
                 theo đúng phong cách riêng
@@ -149,12 +149,12 @@ const Home = () => {
 
       <section className='mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8'>
         <div className='mb-12 text-center'>
-          <span className='tracking-label text-(--color-gold)'>Vì sao chọn LookAI</span>
+          <span className='tracking-label text-(--color-gold)'>Vì sao chọn MặcGì</span>
           <Typography.Title level={2} className='mb-3! mt-3! text-3xl! md:text-4xl!'>
             Tính năng làm nên trải nghiệm khác biệt
           </Typography.Title>
           <Typography.Paragraph className='mx-auto! mb-0! max-w-2xl text-(--color-text-default)/70!'>
-            Không chỉ là gợi ý đẹp mắt, LookAI giúp bạn xây hệ thống phong cách cá nhân có thể sử dụng mỗi ngày.
+            Không chỉ là gợi ý đẹp mắt, MặcGì giúp bạn xây hệ thống phong cách cá nhân có thể sử dụng mỗi ngày.
           </Typography.Paragraph>
         </div>
 
@@ -231,7 +231,7 @@ const Home = () => {
             <div className='max-w-2xl'>
               <span className='tracking-label text-(--color-gold)'>Bắt đầu ngay</span>
               <Typography.Title level={2} className='mb-2! mt-3! text-2xl! text-white! md:text-3xl!'>
-                Nâng cấp phong cách ngay hôm nay với LookAI
+                Nâng cấp phong cách ngay hôm nay với MặcGì
               </Typography.Title>
               <Typography.Paragraph className='mb-0! text-white/70!'>
                 Chọn gói dịch vụ phù hợp để mở khóa tư vấn cá nhân hóa sâu hơn, tăng chất lượng gợi ý và đồng hành phong

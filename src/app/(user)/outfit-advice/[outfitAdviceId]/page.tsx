@@ -36,7 +36,7 @@ const OutfitAdviceDetail = () => {
       const res = await OutfitAdviceService.refineOutfitAdvice({ outfitAdviceId, rating, feedback })
       if (res?.error) return notify('error', res?.msg)
 
-      notify('success', 'Yêu cầu của bạn đã được ghi nhận, LookAI sẽ gợi ý thêm cho bạn sớm nhất!')
+      notify('success', 'Yêu cầu của bạn đã được ghi nhận, MặcGì sẽ gợi ý thêm cho bạn sớm nhất!')
       setOutfitAdvices((prev) => [...prev, res?.data])
       setRating(0)
       setFeedback('')
@@ -134,7 +134,7 @@ const OutfitAdviceDetail = () => {
               </div>
               <div className='flex justify-start'>
                 <div className='bg-(--color-ivory) text-(--color-text-default) py-4 px-5 max-w-md border border-(--color-line)'>
-                  <span className='tracking-label mb-3 block text-(--color-gold)'>Gợi ý từ LookAI</span>
+                  <span className='tracking-label mb-3 block text-(--color-gold)'>Gợi ý từ MặcGì</span>
                   <div dangerouslySetInnerHTML={{ __html: formatAIAnswer(advice?.responsePayload) }} />
                 </div>
               </div>
@@ -150,7 +150,7 @@ const OutfitAdviceDetail = () => {
             Chưa ưng ý với gợi ý này?
           </Typography.Title>
           <Typography.Paragraph className='mb-4! text-(--color-text-default)/60!'>
-            Cho LookAI biết mức độ phù hợp của gợi ý trên và mô tả thêm điều bạn mong muốn, chúng tôi sẽ gửi thêm gợi ý
+            Cho MặcGì biết mức độ phù hợp của gợi ý trên và mô tả thêm điều bạn mong muốn, chúng tôi sẽ gửi thêm gợi ý
             khác phù hợp hơn cho bạn.
           </Typography.Paragraph>
 

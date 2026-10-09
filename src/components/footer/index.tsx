@@ -50,7 +50,7 @@ const Footer = () => {
         </Col>
       </Row>
       <div className='mt-10 border-t border-white/10 pt-5 text-center text-[12px] tracking-wide text-white/40'>
-        © {new Date().getFullYear()} LookAI. All rights reserved.
+        © {new Date().getFullYear()} MặcGì. All rights reserved.
       </div>
     </div>
   )

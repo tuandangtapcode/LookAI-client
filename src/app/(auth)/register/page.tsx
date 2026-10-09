@@ -61,9 +61,9 @@ const Register = () => {
         <Col xxl={11} xl={11} lg={11} md={11} span={24}>
           <Row>
             <Col span={24} className='mb-6'>
-              <span className='tracking-label block text-center text-(--color-gold)'>LookAI</span>
+              <span className='tracking-label block text-center text-(--color-gold)'>MặcGì</span>
               <Typography.Title level={3} className='mb-3! mt-2! text-center! text-[25px]!'>
-                Chào mừng đến với LookAI
+                Chào mừng đến với MặcGì
               </Typography.Title>
               <div className='hidden md:flex justify-around border border-(--color-line) p-1 mb-3'>
                 <Link

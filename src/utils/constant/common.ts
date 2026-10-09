@@ -16,3 +16,7 @@ export const SYSTEM_KEY = {
   LOG_SERVICE: 'LogService',
   OUTFIT_ADVICE_RATING: 'OutfitAdviceRating'
 }
+
+export const ERROR_MESSAGES = {
+  TOKEN_EXPIRED: 'Token đã hết hạn'
+}
